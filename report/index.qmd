@@ -1,0 +1,50 @@
+---
+title: "Advanced Techniques in Data Analysis and Statistical Learning"
+subtitle: "UGE: M2 SIA - Project Report"
+authors:
+  - name: "Luca Uckermann"
+    affiliation:
+      - id: THK
+        name: "University of Applied Sciences (TH Köln)"
+        city: "Cologne"
+        country: "Germany"
+    corresponding: true
+    orcid: "0009-0005-2957-6331"
+  - name: "Nikethan Nimalakumaran"
+    affiliation:
+      - id: UGE
+        name: "Université Gustave Eiffel"
+        city: "Champs-sur-Marne"
+        country: "France"
+  - name: "Jonas"
+    affiliation:
+      - id: JonasUni
+        name: "Jonas Uni"
+        city: "Jonas City"
+        country: "Jonas Country"
+
+bibliography: references.bib
+date: last-modified
+number-sections: true
+link-citations: true
+notebook-links: false
+execute: 
+  eval: true
+  echo: true
+  output: true
+  warning: false
+  error: false
+  include: true
+
+abstract: |
+  Abstract
+---
+
+# Introduction
+
+Hello World! [@test]
+
+# References
+
+::: {#refs}
+:::
