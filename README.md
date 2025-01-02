@@ -1,6 +1,6 @@
 # ml_project
 
-Advanced Techniques in Data Analysis and Statistical Learning
+Machine Learning - Football: Can you guess the winner?
 
 Report available at:\
 https://luckerma.github.io/ml_project/

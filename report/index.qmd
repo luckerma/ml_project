@@ -1,6 +1,6 @@
 ---
-title: "Advanced Techniques in Data Analysis and Statistical Learning"
-subtitle: "UGE: M2 SIA - Project Report"
+title: "Football: Can you guess the winner"
+subtitle: "UGE: M2 SIA - ML Project Report"
 authors:
   - name: "Luca Uckermann"
     affiliation:
@@ -16,12 +16,14 @@ authors:
         name: "Université Gustave Eiffel"
         city: "Champs-sur-Marne"
         country: "France"
-  - name: "Jonas"
+    corresponding: true
+  - name: "Jonas Möller"
     affiliation:
-      - id: JonasUni
-        name: "Jonas Uni"
-        city: "Jonas City"
-        country: "Jonas Country"
+      - id: UBIE
+        name: "Bielefeld University"
+        city: "Bielefeld"
+        country: "Germany"
+    corresponding: true
 
 bibliography: references.bib
 date: last-modified
@@ -40,9 +42,47 @@ abstract: |
   Abstract
 ---
 
-# Introduction
+# Introduction & Problem Understanding
 
 Hello World! [@test]
+
+## Problem
+
+## Objectives
+
+# Data Exploration & Preprocessing
+
+## Cleaning Steps
+
+## Feature Engineering
+
+## Transformations
+
+# Methodological Approaches with Pros & Cons
+
+## Approach 1
+
+## Approach 2
+
+## Approach 3
+
+# Model Selection, Tuning & Validation
+
+## Hyperparameter Tuning
+
+## Validation Framework
+
+# Final Chosen Solution & In-Depth Analysis
+
+## Interpretation of Predictions
+
+# Conclusion & Lessons Learned
+
+## Key Insights
+
+## Challenges Encountered
+
+## Future Projects
 
 # References
 
