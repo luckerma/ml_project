@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-12-16">
+<meta name="dcterms.date" content="2025-01-02">
 
-<title>Advanced Techniques in Data Analysis and Statistical Learning</title>
+<title>Football: Can you guess the winner</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -56,16 +56,16 @@ div.csl-indent {
 <link href="site_libs/bootstrap/bootstrap-7bfb9ce031f0150bcdd0059ffcd3ab40.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
-<meta name="citation_title" content="Advanced Techniques in Data Analysis and Statistical Learning">
+<meta name="citation_title" content="Football: Can you guess the winner">
 <meta name="citation_abstract" content="Abstract
 ">
 <meta name="citation_author" content="Luca Uckermann">
 <meta name="citation_author" content="Nikethan Nimalakumaran">
-<meta name="citation_author" content="Jonas ">
-<meta name="citation_publication_date" content="2024-12-16">
-<meta name="citation_cover_date" content="2024-12-16">
-<meta name="citation_year" content="2024">
-<meta name="citation_online_date" content="2024-12-16">
+<meta name="citation_author" content="Jonas Möller">
+<meta name="citation_publication_date" content="2025-01-02">
+<meta name="citation_cover_date" content="2025-01-02">
+<meta name="citation_year" content="2025">
+<meta name="citation_online_date" content="2025-01-02">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=Test;,citation_author=undefined Test;,citation_fulltext_html_url=http://www.test.com;">
 </head>
@@ -75,8 +75,8 @@ div.csl-indent {
 <header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Advanced Techniques in Data Analysis and Statistical Learning</h1>
-            <p class="subtitle lead">UGE: M2 SIA - Project Report</p>
+      <h1 class="title">Football: Can you guess the winner</h1>
+            <p class="subtitle lead">UGE: M2 SIA - ML Project Report</p>
           </div>
 
     
@@ -103,11 +103,11 @@ div.csl-indent {
                       </p>
                   </div>
                       <div class="quarto-title-meta-contents">
-            <p class="author">Jonas </p>
+            <p class="author">Jonas Möller </p>
           </div>
                 <div class="quarto-title-meta-contents">
                     <p class="affiliation">
-                        Jonas Uni
+                        Bielefeld University
                       </p>
                   </div>
                     </div>
@@ -118,7 +118,7 @@ div.csl-indent {
                 <div>
             <div class="quarto-title-meta-heading">Published</div>
             <div class="quarto-title-meta-contents">
-              <p class="date">December 16, 2024</p>
+              <p class="date">January 2, 2025</p>
             </div>
           </div>
           
@@ -145,8 +145,39 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">2</span> References</a></li>
+  <li><a href="#introduction-problem-understanding" id="toc-introduction-problem-understanding" class="nav-link active" data-scroll-target="#introduction-problem-understanding"><span class="header-section-number">1</span> Introduction &amp; Problem Understanding</a>
+  <ul class="collapse">
+  <li><a href="#problem" id="toc-problem" class="nav-link" data-scroll-target="#problem"><span class="header-section-number">1.1</span> Problem</a></li>
+  <li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives"><span class="header-section-number">1.2</span> Objectives</a></li>
+  </ul></li>
+  <li><a href="#data-exploration-preprocessing" id="toc-data-exploration-preprocessing" class="nav-link" data-scroll-target="#data-exploration-preprocessing"><span class="header-section-number">2</span> Data Exploration &amp; Preprocessing</a>
+  <ul class="collapse">
+  <li><a href="#cleaning-steps" id="toc-cleaning-steps" class="nav-link" data-scroll-target="#cleaning-steps"><span class="header-section-number">2.1</span> Cleaning Steps</a></li>
+  <li><a href="#feature-engineering" id="toc-feature-engineering" class="nav-link" data-scroll-target="#feature-engineering"><span class="header-section-number">2.2</span> Feature Engineering</a></li>
+  <li><a href="#transformations" id="toc-transformations" class="nav-link" data-scroll-target="#transformations"><span class="header-section-number">2.3</span> Transformations</a></li>
+  </ul></li>
+  <li><a href="#methodological-approaches-with-pros-cons" id="toc-methodological-approaches-with-pros-cons" class="nav-link" data-scroll-target="#methodological-approaches-with-pros-cons"><span class="header-section-number">3</span> Methodological Approaches with Pros &amp; Cons</a>
+  <ul class="collapse">
+  <li><a href="#approach-1" id="toc-approach-1" class="nav-link" data-scroll-target="#approach-1"><span class="header-section-number">3.1</span> Approach 1</a></li>
+  <li><a href="#approach-2" id="toc-approach-2" class="nav-link" data-scroll-target="#approach-2"><span class="header-section-number">3.2</span> Approach 2</a></li>
+  <li><a href="#approach-3" id="toc-approach-3" class="nav-link" data-scroll-target="#approach-3"><span class="header-section-number">3.3</span> Approach 3</a></li>
+  </ul></li>
+  <li><a href="#model-selection-tuning-validation" id="toc-model-selection-tuning-validation" class="nav-link" data-scroll-target="#model-selection-tuning-validation"><span class="header-section-number">4</span> Model Selection, Tuning &amp; Validation</a>
+  <ul class="collapse">
+  <li><a href="#hyperparameter-tuning" id="toc-hyperparameter-tuning" class="nav-link" data-scroll-target="#hyperparameter-tuning"><span class="header-section-number">4.1</span> Hyperparameter Tuning</a></li>
+  <li><a href="#validation-framework" id="toc-validation-framework" class="nav-link" data-scroll-target="#validation-framework"><span class="header-section-number">4.2</span> Validation Framework</a></li>
+  </ul></li>
+  <li><a href="#final-chosen-solution-in-depth-analysis" id="toc-final-chosen-solution-in-depth-analysis" class="nav-link" data-scroll-target="#final-chosen-solution-in-depth-analysis"><span class="header-section-number">5</span> Final Chosen Solution &amp; In-Depth Analysis</a>
+  <ul class="collapse">
+  <li><a href="#interpretation-of-predictions" id="toc-interpretation-of-predictions" class="nav-link" data-scroll-target="#interpretation-of-predictions"><span class="header-section-number">5.1</span> Interpretation of Predictions</a></li>
+  </ul></li>
+  <li><a href="#conclusion-lessons-learned" id="toc-conclusion-lessons-learned" class="nav-link" data-scroll-target="#conclusion-lessons-learned"><span class="header-section-number">6</span> Conclusion &amp; Lessons Learned</a>
+  <ul class="collapse">
+  <li><a href="#key-insights" id="toc-key-insights" class="nav-link" data-scroll-target="#key-insights"><span class="header-section-number">6.1</span> Key Insights</a></li>
+  <li><a href="#challenges-encountered" id="toc-challenges-encountered" class="nav-link" data-scroll-target="#challenges-encountered"><span class="header-section-number">6.2</span> Challenges Encountered</a></li>
+  <li><a href="#future-projects" id="toc-future-projects" class="nav-link" data-scroll-target="#future-projects"><span class="header-section-number">6.3</span> Future Projects</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">7</span> References</a></li>
   </ul>
 </nav>
 </div>
@@ -159,12 +190,69 @@ div.csl-indent {
   
 
 
-<section id="introduction" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<section id="introduction-problem-understanding" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction &amp; Problem Understanding</h1>
 <p>Hello World! <span class="citation" data-cites="test">(<a href="#ref-test" role="doc-biblioref">Test n.d.</a>)</span></p>
+<section id="problem" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="problem"><span class="header-section-number">1.1</span> Problem</h2>
 </section>
-<section id="references" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> References</h1>
+<section id="objectives" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="objectives"><span class="header-section-number">1.2</span> Objectives</h2>
+</section>
+</section>
+<section id="data-exploration-preprocessing" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Data Exploration &amp; Preprocessing</h1>
+<section id="cleaning-steps" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="cleaning-steps"><span class="header-section-number">2.1</span> Cleaning Steps</h2>
+</section>
+<section id="feature-engineering" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="feature-engineering"><span class="header-section-number">2.2</span> Feature Engineering</h2>
+</section>
+<section id="transformations" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="transformations"><span class="header-section-number">2.3</span> Transformations</h2>
+</section>
+</section>
+<section id="methodological-approaches-with-pros-cons" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Methodological Approaches with Pros &amp; Cons</h1>
+<section id="approach-1" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="approach-1"><span class="header-section-number">3.1</span> Approach 1</h2>
+</section>
+<section id="approach-2" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="approach-2"><span class="header-section-number">3.2</span> Approach 2</h2>
+</section>
+<section id="approach-3" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="approach-3"><span class="header-section-number">3.3</span> Approach 3</h2>
+</section>
+</section>
+<section id="model-selection-tuning-validation" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Model Selection, Tuning &amp; Validation</h1>
+<section id="hyperparameter-tuning" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="hyperparameter-tuning"><span class="header-section-number">4.1</span> Hyperparameter Tuning</h2>
+</section>
+<section id="validation-framework" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="validation-framework"><span class="header-section-number">4.2</span> Validation Framework</h2>
+</section>
+</section>
+<section id="final-chosen-solution-in-depth-analysis" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Final Chosen Solution &amp; In-Depth Analysis</h1>
+<section id="interpretation-of-predictions" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="interpretation-of-predictions"><span class="header-section-number">5.1</span> Interpretation of Predictions</h2>
+</section>
+</section>
+<section id="conclusion-lessons-learned" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Conclusion &amp; Lessons Learned</h1>
+<section id="key-insights" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="key-insights"><span class="header-section-number">6.1</span> Key Insights</h2>
+</section>
+<section id="challenges-encountered" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="challenges-encountered"><span class="header-section-number">6.2</span> Challenges Encountered</h2>
+</section>
+<section id="future-projects" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="future-projects"><span class="header-section-number">6.3</span> Future Projects</h2>
+</section>
+</section>
+<section id="references" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-test" class="csl-entry" role="listitem">
 Test. n.d. <span>“Test.”</span> Accessed January 1, 2019. <a href="http://www.test.com">http://www.test.com</a>.
