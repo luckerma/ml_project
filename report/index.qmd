@@ -1,5 +1,5 @@
 ---
-title: "Football: Can you guess the winner"
+title: "Football: Can you guess the winner?"
 subtitle: "UGE: M2 SIA - ML Project Report"
 authors:
   - name: "Luca Uckermann"
@@ -9,6 +9,7 @@ authors:
         city: "Cologne"
         country: "Germany"
     corresponding: true
+    email: "luca_simon.uckermann@smail.th-koeln.de"
     orcid: "0009-0005-2957-6331"
   - name: "Nikethan Nimalakumaran"
     affiliation:
@@ -17,6 +18,7 @@ authors:
         city: "Champs-sur-Marne"
         country: "France"
     corresponding: true
+    email: "nimalakumaran@edu.univ-eiffel.fr"
   - name: "Jonas Möller"
     affiliation:
       - id: UBIE
@@ -24,6 +26,7 @@ authors:
         city: "Bielefeld"
         country: "Germany"
     corresponding: true
+    email: "jonas.moller@edu.univ-eiffel.fr"
 
 bibliography: references.bib
 date: last-modified
@@ -44,13 +47,30 @@ abstract: |
 
 # Introduction & Problem Understanding
 
-Hello World! [@test]
-
 ## Context and Motivation
+
+This report explores the use of machine learning to predict football match outcomes (home win, draw or away win) based on historical team and player statistics. The ability to create accurate predictive models can significantly benefit stakeholders such as sports analysts, bettors and team managers by providing valuable insight into potential match outcomes.
 
 ## Objectives
 
+The primary objective of this project is to build a robust prediction model capable of determining the outcome of football matches using real historical data. This model should generalize across leagues, divisions and competitive levels, ensuring consistent performance across different match scenarios.
+
+Secondary objectives include:
+
+- Evaluate the effectiveness of different machine learning techniques on sports data.
+- Identify the most influential features that drive match outcomes.
+- Provide actionable insights and lessons learned for future sports analytics projects.
+
 ## Challenge Description
+
+The challenge from QTR [@challengedata143] provides a rich dataset comprising football match data from numerous leagues around the world. The entire dataset is divided into two categories: *team* and *player* statistics. The first category contains *25* features, while the second contains *52* features. The provided data is aggregated by sum, average and standard deviation. The ultimate goal is to predict match results, represented as a vector: `[HOME_WINS, DRAW, AWAY_WINS]`. The data can be found on the Challenge Data platform [@challengedata]. Two benchmarks are provided: a simple "home win" prediction with an accuracy of *44%* and a gradient boosting tree model with an accuracy of *47.5%*.
+
+Several challenges inherent in this dataset include:
+
+- **Class Imbalance:** Matches are not evenly distributed across home wins, draws and away wins, potentially biasing models.
+- **Data Heterogeneity:** Leagues vary significantly in playing style, player skill and game dynamics.
+- **Feature Complexity:** The dataset contains a mix of team and player statistics, requiring effective feature selection and engineering.
+- **Limited Test Information:** No labels are provided for the test set, making it difficult to evaluate model performance.
 
 # Data Exploration & Preprocessing
 
