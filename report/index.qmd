@@ -46,35 +46,67 @@ abstract: |
 
 Hello World! [@test]
 
-## Problem
+## Context and Motivation
 
 ## Objectives
 
+## Challenge Description
+
 # Data Exploration & Preprocessing
 
-## Cleaning Steps
+## Dataset Overview
+
+## Exploratory Data Analysis (EDA)
+
+## Data Cleaning
 
 ## Feature Engineering
 
-## Transformations
+## Final Data Representation
 
 # Methodological Approaches with Pros & Cons
 
 ## Approach 1
 
+### Overview
+
+### Advantages
+
+### Disadvantages
+
 ## Approach 2
+
+### Overview
+
+### Advantages
+
+### Disadvantages
 
 ## Approach 3
 
+### Overview
+
+### Advantages
+
+### Disadvantages
+
 # Model Selection, Tuning & Validation
 
-## Hyperparameter Tuning
+## Hyperparameter Tuning Strategy
 
 ## Validation Framework
 
+## Performance Metrics
+
 # Final Chosen Solution & In-Depth Analysis
 
-## Interpretation of Predictions
+## Best Performing Approach
+
+## Model Interpretation
+
+## Discussion of Results
+
+## Limitations
 
 # Conclusion & Lessons Learned
 
@@ -82,7 +114,7 @@ Hello World! [@test]
 
 ## Challenges Encountered
 
-## Future Projects
+## Future Work
 
 # References
 
