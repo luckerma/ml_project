@@ -63,7 +63,7 @@ Secondary objectives include:
 
 ## Challenge Description
 
-The challenge from QTR [@challengedata143] provides a rich dataset comprising football match data from numerous leagues around the world. The entire dataset is divided into two categories: *team* and *player* statistics. The first category contains *25* features, while the second contains *52* features. The provided data is aggregated by sum, average and standard deviation. The ultimate goal is to predict match results, represented as a vector: `[HOME_WINS, DRAW, AWAY_WINS]`. The data can be found on the Challenge Data platform [@challengedata]. Two benchmarks are provided: a simple "home win" prediction with an accuracy of *44%* and a gradient boosting tree model with an accuracy of *47.5%*.
+The challenge from QTR [@challengedata143] provides a rich dataset comprising football match data from numerous leagues around the world. The entire dataset is divided into two categories: _team_ and _player_ statistics. The first category contains _25_ features, while the second contains _52_ features. The provided data is aggregated by sum, average and standard deviation. The ultimate goal is to predict match results, represented as a vector: `[HOME_WINS, DRAW, AWAY_WINS]`. The data can be found on the Challenge Data platform [@challengedata]. Two benchmarks are provided: a simple "home win" prediction with an accuracy of _44%_ and a gradient boosting tree model with an accuracy of _47.5%_.
 
 Several challenges inherent in this dataset include:
 
@@ -98,7 +98,8 @@ A quick summary of the training dataset revealed meaningful patterns in team per
 | home_TEAM_SAVES_season_sum             | 12,303    | 4.38     | 3.00        | 0.0     | 2.0     | 4.0     | 7.0     | 10.0    |
 | home_TEAM_CORNERS_season_sum           | 12,303    | 4.50     | 2.80        | 0.0     | 2.0     | 4.0     | 6.0     | 10.0    |
 | home_TEAM_FOULS_season_sum             | 12,303    | 4.82     | 3.02        | 0.0     | 3.0     | 5.0     | 7.0     | 10.0    |
-:Summary statistics for the top 10 features in the training dataset. {#tbl-feature-stats}
+
+: Summary statistics for the top 10 features in the training dataset. {#tbl-feature-stats}
 
 @tbl-feature-stats highlights the variability in team performance metrics, such as shots and passes, which are critical indicators for match outcomes.
 
@@ -111,7 +112,8 @@ The class distribution, as shown in the plot below, reveals a significant imbala
 | Home Wins (0) | 5,356     | 43.5%          |
 | Away Wins (2) | 3,761     | 30.6%          |
 | Draws (1)     | 3,186     | 25.9%          |
-:Class distribution of match outcomes in the training dataset. {#tbl-class-distribution}
+
+: Class distribution of match outcomes in the training dataset. {#tbl-class-distribution}
 
 ![Class Distribution](./resources/class_distribution.png){#fig-class-distribution}
 
@@ -174,7 +176,7 @@ Logistic Regression is a statistical model that is widely used for binary classi
 
 **Disadvantages:**
 
-- Assumes linearity between predictors and the log-odds, which can limit performance on nonlinear data [@Hosmer2013].
+- Assumes linearity between predictors and the log-odds, which can limit performance on non-linear data [@Hosmer2013].
 - Prone to underfitting when dealing with complex or high-dimensional datasets.
 
 ---
@@ -205,7 +207,7 @@ XGBoost is an advanced implementation of gradient boosting designed for speed an
 **Advantages:**
 
 - Achieves state-of-the-art predictive performance on structured datasets [@Chen2016].
-- Regularisation controls overfitting better than traditional gradient boosting.
+- Regularization controls overfitting better than traditional gradient boosting.
 - Flexible with custom loss functions and supports parallel processing.
 
 **Disadvantages:**
@@ -239,8 +241,9 @@ LightGBM (Light Gradient Boosting Machine) is a fast and efficient gradient boos
 | ------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
 | Logistic Regression | - Simple and interpretable [@Hosmer2013].                                                                        | - Assumes linear relationships; struggles with complex, non-linear data [@Hosmer2013].     | - Small datasets with linearly separable features or where interpretability is critical. |
 | Random Forest       | - Captures non-linear relationships; robust to overfitting; handles categorical data well [@Breiman2001].        | - Computationally intensive; less interpretable compared to simpler models [@Breiman2001]. | - Medium to large datasets with diverse features; identifying important variables.       |
-| XGBoost             | - High predictive performance; regularisation to reduce overfitting; supports custom loss functions [@Chen2016]. | - Hyperparameter tuning is computationally expensive; less interpretable [@Chen2016].      | - Competitions or tasks requiring high accuracy and scalability.                         |
-| LightGBM            | - Fast and efficient; handles large-scale datasets; optimised for sparse data [@Ke2017].                         | - Can overfit on small datasets; requires careful hyperparameter tuning [@Ke2017].         | - Large, high-dimensional datasets or tasks involving sparse features.                   |
+| XGBoost             | - High predictive performance; regularization to reduce overfitting; supports custom loss functions [@Chen2016]. | - Hyperparameter tuning is computationally expensive; less interpretable [@Chen2016].      | - Competitions or tasks requiring high accuracy and scalability.                         |
+| LightGBM            | - Fast and efficient; handles large-scale datasets; optimized for sparse data [@Ke2017].                         | - Can overfit on small datasets; requires careful hyperparameter tuning [@Ke2017].         | - Large, high-dimensional datasets or tasks involving sparse features.                   |
+
 : Comparison of key advantages, disadvantages, and best use cases for Logistic Regression, Random Forest, XGBoost, and LightGBM. {#tbl-model-comparison}
 
 # Model Selection, Tuning & Validation
@@ -336,52 +339,54 @@ To evaluate the models, we relied on two primary metrics:
 
 Additionally, confusion matrices were used to provide a detailed breakdown of predictions versus actual outcomes, highlighting strengths and weaknesses for each class.
 
-## Results of Hyperparameter Tuning 
+## Results of Hyperparameter Tuning
 
-The table below summarises the performance metrics for each model after hyperparameter tuning using the validation set:
+The table below summarizes the performance metrics for each model after hyperparameter tuning using the validation set:
 
-| **Model**              | **Accuracy** | **F1 Score (Macro)** | **Best Hyperparameters**                                         |
-|-------------------------|--------------|-----------------------|------------------------------------------------------------------|
-| Logistic Regression     | 0.463         | 0.410                  | `{'C': 0.115}`                                                   |
-| Random Forest           | 0.505         | 0.0368                  | `{'n_estimators': 10, 'max_depth': 201}`                         |
-| XGBoost                 | 0.498         | 0.0363                  | `{'n_estimators': 181, 'max_depth': 4, 'learning_rate': 0.008}`   |
-| LightGBM                | 0.503         | 0.0372                  | `{'n_estimators': 180, 'max_depth': 11, 'learning_rate': 0.011}`   |
+| **Model**           | **Accuracy** | **F1 Score (Macro)** | **Best Hyperparameters**                                         |
+| ------------------- | ------------ | -------------------- | ---------------------------------------------------------------- |
+| Logistic Regression | 0.463        | 0.410                | `{'C': 0.115}`                                                   |
+| Random Forest       | 0.505        | 0.0368               | `{'n_estimators': 10, 'max_depth': 201}`                         |
+| XGBoost             | 0.498        | 0.0363               | `{'n_estimators': 181, 'max_depth': 4, 'learning_rate': 0.008}`  |
+| LightGBM            | 0.503        | 0.0372               | `{'n_estimators': 180, 'max_depth': 11, 'learning_rate': 0.011}` |
 
-These are the results for the hyperparameter tuning, the table shows the model with the corresponding accuracy and F1 score and the best parameters. After the hyperparameter tuning we trained those models with the best parameters on the whole dataset. 
+: Results of hyperparameter tuning for Logistic Regression, Random Forest, XGBoost, and LightGBM models. {#tbl-hyperparameter-tuning}
+
+These are the results for the hyperparameter tuning, @tbl-hyperparameter-tuning shows the model with the corresponding accuracy and F1 score and the best parameters. After the hyperparameter tuning, we trained those models with the best parameters on the whole dataset.
 
 # Final Chosen Solution & In-Depth Analysis
 
 ## Best Performing Approach
 
-After training the models on the full dataset and evaluating their performance both on a held-out validation set and the competition platform, the **Random Forest** emerged as the best-performing model with a competitive accuracy of **0.4879** on the challenge leaderboard. While other models such as XGBoost and LightGBM also performed reasonably well, Random Forest demonstrated better generalisation and robustness when applied to unseen test data. It ranked **279 out of 832 submissions**, placing it significantly above the baseline model.
+After training the models on the full dataset and evaluating their performance both on a held-out validation set and the competition platform, the **Random Forest** emerged as the best-performing model with a competitive accuracy of **0.4879** on the challenge leaderboard. While other models such as XGBoost and LightGBM also performed reasonably well, Random Forest demonstrated better generalization and robustness when applied to unseen test data. It ranked **279 out of 832 submissions**, placing it significantly above the baseline model.
 
 ## In-Depth Model Evaluation
 
 ### Logistic Regression
 
-Logistic Regression, despite its simplicity, struggled to capture the non-linear relationships in the data. Its accuracy on the validation set was **45%**, and its performance on the challenge platform was slightly lower at **43.28%**. The model demonstrated a preference for the majority class (Home Wins) but struggled with minority classes (Draws and Away Wins). The confusion matrix revealed an imbalance in predictions, particularly for the Draw class, which significantly reduced its macro F1-score.
+Logistic Regression, despite its simplicity, struggled to capture the non-linear relationships in the data. Its accuracy on the validation set was **45%**, and its performance on the challenge platform was slightly lower at **43.28%**. The model demonstrated a preference for the majority class (Home Wins) but struggled with minority classes (Draws and Away Wins). The confusion matrix (@fig-logistic-regression-confusion-matrix) revealed an imbalance in predictions, particularly for the Draw class, which significantly reduced its macro F1-score.
 
-![Confusion Matrix Logistic Regression](<resources/Logistic_Regression.png>)
+![Confusion Matrix Logistic Regression](resources/Logistic_Regression.png){#fig-logistic-regression-confusion-matrix}
 
 ### Random Forest
 
-Random Forest achieved a validation accuracy of **49%** and maintained this level of performance on the challenge platform with an accuracy of **48.79%**. The confusion matrix indicated that Random Forest effectively captured the majority class (Home Wins) while achieving reasonable performance for Away Wins. However, it showed limited success in predicting Draws, as evidenced by the low recall for this class.
+Random Forest achieved a validation accuracy of **49%** and maintained this level of performance on the challenge platform with an accuracy of **48.79%**. The confusion matrix (@fig-random-forest-confusion-matrix) indicated that Random Forest effectively captured the majority class (Home Wins) while achieving reasonable performance for Away Wins. However, it showed limited success in predicting Draws, as evidenced by the low recall for this class.
 
-Key strengths of Random Forest include its ability to model complex feature interactions and provide consistent performance across datasets, making it a reliable choice for this task.
+Key strengths of Random Forest include its ability to model complex feature interactions and to provide consistent performance across datasets, making it a reliable choice for this task.
 
-![Confusion Matrix Random Forest](<resources/Random_Forest.png>)
+![Confusion Matrix Random Forest](resources/Random_Forest.png){#fig-random-forest-confusion-matrix}
 
 ### XGBoost
 
-XGBoost performed similarly to Random Forest on both the validation set and the challenge platform, achieving leaderboard accuracy of **48.49%**. While XGBoost excelled in handling imbalanced data through boosting iterations, its computational overhead and sensitivity to hyperparameter tuning posed challenges. Its confusion matrix revealed a similar pattern to Random Forest, with strong performance for Home Wins but weaker performance for Draws.
+XGBoost performed similarly to Random Forest on both the validation set and the challenge platform, achieving leaderboard accuracy of **48.49%**. While XGBoost excelled in handling imbalanced data through boosting iterations, its computational overhead and sensitivity to hyperparameter tuning posed challenges. Its confusion matrix (@fig-xgboost-confusion-matrix) revealed a similar pattern to Random Forest, with strong performance for Home Wins but weaker performance for Draws.
 
-![Confusion Matrix XGBoost](<resources/XGBC.png>)
+![Confusion Matrix XGBoost](resources/XGBC.png){#fig-xgboost-confusion-matrix}
 
 ### LightGBM
 
-LightGBM demonstrated competitive performance with a leaderboard accuracy of **48.48%**. Its efficiency in handling large-scale data and sparse features made it well-suited for this project. However, like XGBoost, it struggled to achieve high recall for the Draw class, leading to a lower macro F1-score. Despite these limitations, LightGBM's fast training and inference times make it an attractive option for large-scale deployments.
+LightGBM demonstrated competitive performance with a leaderboard accuracy of **48.48%**. Its efficiency in handling large-scale data and sparse features made it well-suited for this project. However, like XGBoost, it struggled to achieve high recall for the Draw class (@fig-lightgbm-confusion-matrix), leading to a lower macro F1-score. Despite these limitations, LightGBM's fast training and inference times make it an attractive option for large-scale deployments.
 
-![Confusion Matrix LightGBM](<resources/LGBM.png>)
+![Confusion Matrix LightGBM](resources/LGBM.png){#fig-lightgbm-confusion-matrix}
 
 ### Feature Engineering Insights
 
@@ -389,18 +394,22 @@ During the final training phase, we decided not to include the engineered **diff
 
 ## Validation and Leaderboard Results
 
-| **Model**              | **Validation Accuracy** | **Leaderboard Accuracy** | **Ranking** | **F1 Score (Macro)** |
-|-------------------------|-------------------------|---------------------------|-------------|-----------------------|
-| Logistic Regression     | 45%                    | 43.28%                    | 770         | 0.40                 |
-| Random Forest           | 49%                    | 48.79%                    | 279         | 0.35                 |
-| XGBoost                 | 48%                    | 48.49%                    | 464         | 0.35                 |
-| LightGBM                | 48%                    | 48.48%                    | 470         | 0.36                 |
+| **Model**           | **Validation Accuracy** | **Leaderboard Accuracy** | **Ranking** | **F1 Score (Macro)** |
+| ------------------- | ----------------------- | ------------------------ | ----------- | -------------------- |
+| Logistic Regression | 45%                     | 43.28%                   | 770         | 0.40                 |
+| Random Forest       | 49%                     | 48.79%                   | 279         | 0.35                 |
+| XGBoost             | 48%                     | 48.49%                   | 464         | 0.35                 |
+| LightGBM            | 48%                     | 48.48%                   | 470         | 0.36                 |
+
+: Validation and leaderboard results for Logistic Regression, Random Forest, XGBoost, and LightGBM models. {#tbl-validation-leaderboard-results}
+
+@tbl-validation-leaderboard-results summarizes the performance of each model on the validation set and the challenge leaderboard.
 
 ## Discussion of Results
 
 The results highlight the challenges of accurately predicting football match outcomes due to the complexity and variability inherent in the sport. Despite these challenges, the models performed well compared to the baseline, with Random Forest achieving a notable improvement. However, all models struggled with the Draw class, likely due to its lower representation and more ambiguous nature in the dataset.
 
-The primary takeaway from this analysis is the importance of feature selection in sports analytics. This includes not only identifying the most relevant features but also determining when engineered features may not contribute positively to model performance.
+The primary takeaway from this analysis is the importance of feature selection in sports analytics. This includes not only identifying the most relevant features, but also determining when engineered features may not contribute positively to model performance.
 
 ## Limitations
 
@@ -415,7 +424,7 @@ The primary takeaway from this analysis is the importance of feature selection i
 This project explored the use of machine learning techniques to predict football match outcomes, leveraging a dataset rich in team and player statistics. The results demonstrated that ensemble methods, particularly Random Forest, performed robustly on this complex task, achieving a leaderboard ranking significantly above the baseline. Key insights include:
 
 - **Feature Selection Matters:** The decision to exclude engineered features such as differences and ratios during final training proved beneficial, highlighting the importance of testing feature relevance comprehensively.
-- **Class Imbalance Is Challenging:** The imbalance in target classes, particularly the underrepresented Draw category, influenced the models' ability to generalise, indicating the need for tailored handling of such scenarios in sports analytics.
+- **Class Imbalance Is Challenging:** The imbalance in target classes, particularly the underrepresented Draw category, influenced the models' ability to generalize, indicating the need for tailored handling of such scenarios in sports analytics.
 - **Model Complexity Balances:** Simpler models like Logistic Regression provided interpretability but struggled with the data's non-linear relationships. In contrast, advanced ensemble methods such as Random Forest and XGBoost excelled in predictive performance.
 
 ## Challenges Encountered
@@ -432,9 +441,11 @@ To further improve model performance and push the boundaries of sports analytics
 
 - **Augment the Dataset:** Incorporate external data sources, such as live match statistics, player fitness levels, and betting odds, to provide additional context and improve feature richness.
 - **Explore Advanced Models:** Investigate the use of neural networks and hybrid ensemble methods to capture non-linear and hierarchical relationships more effectively.
-- **Improve Draw Predictions:** Develop targeted strategies to handle the Draw class, such as oversampling techniques, cost-sensitive learning, or even specialised sub-models designed for this specific outcome.
+- **Improve Draw Predictions:** Develop targeted strategies to handle the Draw class, such as oversampling techniques, cost-sensitive learning, or even specialized sub-models designed for this specific outcome.
 
 By addressing these limitations and exploring new opportunities, future iterations of this project can aim for even greater accuracy, insights, and potentially a top-10 ranking on competitive platforms.
+
+{{< pagebreak >}}
 
 # References
 
