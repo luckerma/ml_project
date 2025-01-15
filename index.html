@@ -104,11 +104,11 @@ div.csl-indent {
 <meta name="citation_year" content="2025">
 <meta name="citation_online_date" content="2025-01-15">
 <meta name="citation_language" content="en">
+<meta name="citation_reference" content="citation_title=Random forests;,citation_author=Leo Breiman;,citation_publication_date=2001;,citation_cover_date=2001;,citation_year=2001;,citation_issue=1;,citation_volume=45;,citation_journal_title=Machine Learning;,citation_publisher=Springer;">
 <meta name="citation_reference" content="citation_title=Challenge data;,citation_author=Challenge Data;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://challengedata.ens.fr/;">
 <meta name="citation_reference" content="citation_title=Football : Can you guess the winner?;,citation_author=Qube Research Technologies Group;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://challengedata.ens.fr/participants/challenges/143/;">
-<meta name="citation_reference" content="citation_title=Applied logistic regression;,citation_author=David W Hosmer;,citation_author=Stanley Lemeshow;,citation_author=Rodney X Sturdivant;,citation_publication_date=2013;,citation_cover_date=2013;,citation_year=2013;">
-<meta name="citation_reference" content="citation_title=Random forests;,citation_author=Leo Breiman;,citation_publication_date=2001;,citation_cover_date=2001;,citation_year=2001;,citation_issue=1;,citation_volume=45;,citation_journal_title=Machine Learning;,citation_publisher=Springer;">
 <meta name="citation_reference" content="citation_title=XGBoost: A scalable tree boosting system;,citation_author=Tianqi Chen;,citation_author=Carlos Guestrin;,citation_publication_date=2016;,citation_cover_date=2016;,citation_year=2016;,citation_conference_title=Proceedings of the 22nd ACM SIGKDD international conference on knowledge discovery and data mining;,citation_conference=ACM;">
+<meta name="citation_reference" content="citation_title=Applied logistic regression;,citation_author=David W Hosmer;,citation_author=Stanley Lemeshow;,citation_author=Rodney X Sturdivant;,citation_publication_date=2013;,citation_cover_date=2013;,citation_year=2013;">
 <meta name="citation_reference" content="citation_title=LightGBM: A highly efficient gradient boosting decision tree;,citation_author=Guolin Ke;,citation_author=Qiwei Meng;,citation_author=Thomas Finley;,citation_author=Taifeng Wang;,citation_author=Wei Chen;,citation_author=Weidong Ma;,citation_author=Qiwei Ye;,citation_author=Tie-Yan Liu;,citation_publication_date=2017;,citation_cover_date=2017;,citation_year=2017;,citation_conference_title=Advances in neural information processing systems;">
 </head>
 
@@ -287,23 +287,29 @@ div.csl-indent {
 <section id="dataset-overview" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="dataset-overview"><span class="header-section-number">2.1</span> Dataset Overview</h2>
 <p>The dataset provided for this project includes football match statistics aggregated at both team and player levels, with separate data for home and away teams. The data is structured into four CSV files for home and away teams and players, along with two additional files containing the target labels. These labels represent match outcomes as one of three categories: home win, draw, or away win. The aim is to leverage this rich dataset to build a machine learning model capable of predicting match outcomes with high accuracy. The training dataset contains <strong>12,303 rows</strong> and <strong>884 features</strong>, comprising the given data. Each row corresponds to a match, and the target variable represents the match outcome as one of three classes: <code>HOME_WINS</code>, <code>DRAW</code>, or <code>AWAY_WINS</code>, encoded as <code>[0, 1, 2]</code>.</p>
-<p>The target class distribution is imbalanced, with <strong>43.5% home wins</strong>, <strong>30.6% away wins</strong>, and <strong>25.9% draws</strong>. This imbalance required careful handling during the model training phase to prevent biased predictions toward the majority class.</p>
+<p>The target class distribution is imbalanced, with <strong>43.5% home wins</strong>, <strong>30.6% away wins</strong>, and <strong>25.9% draws</strong>. This imbalance required careful handling during the model training phase to prevent biased predictions towards the majority class.</p>
 <section id="exploratory-data-analysis-eda" class="level3" data-number="2.1.1">
 <h3 data-number="2.1.1" class="anchored" data-anchor-id="exploratory-data-analysis-eda"><span class="header-section-number">2.1.1</span> Exploratory Data Analysis (EDA)</h3>
 <section id="key-feature-statistics" class="level4" data-number="2.1.1.1">
 <h4 data-number="2.1.1.1" class="anchored" data-anchor-id="key-feature-statistics"><span class="header-section-number">2.1.1.1</span> Key Feature Statistics</h4>
 <p>A quick summary of the training dataset revealed meaningful patterns in team performance metrics. The table below highlights the statistics for the top 10 features:</p>
+<div id="tbl-feature-stats" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-feature-stats-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Summary statistics for the top 10 features in the training dataset.
+</figcaption>
+<div aria-describedby="tbl-feature-stats-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
-<col style="width: 34%">
-<col style="width: 9%">
+<col style="width: 37%">
 <col style="width: 8%">
+<col style="width: 7%">
 <col style="width: 10%">
-<col style="width: 7%">
-<col style="width: 7%">
-<col style="width: 7%">
-<col style="width: 7%">
-<col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -431,11 +437,20 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
-<p>These statistics highlight the variability in team performance metrics, such as shots and passes, which are critical indicators for match outcomes.</p>
+</div>
+</figure>
+</div>
+<p><a href="#tbl-feature-stats" class="quarto-xref">Table&nbsp;1</a> highlights the variability in team performance metrics, such as shots and passes, which are critical indicators for match outcomes.</p>
 </section>
 <section id="class-distribution" class="level4" data-number="2.1.1.2">
 <h4 data-number="2.1.1.2" class="anchored" data-anchor-id="class-distribution"><span class="header-section-number">2.1.1.2</span> Class Distribution</h4>
 <p>The class distribution, as shown in the plot below, reveals a significant imbalance in match outcomes:</p>
+<div id="tbl-class-distribution" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-class-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Class distribution of match outcomes in the training dataset.
+</figcaption>
+<div aria-describedby="tbl-class-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -462,34 +477,45 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="resources/class_distribution.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Class Distribution"><img src="resources/class_distribution.png" class="img-fluid figure-img" alt="Class Distribution"></a></p>
-<figcaption>Class Distribution</figcaption>
+</div>
 </figure>
 </div>
-<p>The imbalance in target classes necessitated the use of stratified sampling during train-test splits to ensure fair representation of all classes.</p>
-<p>Following the initial exploration of class imbalance in the dataset, we conducted a deeper analysis of certain features to assess their behaviour and potential influence on match outcomes. This analysis aimed to provide a clearer understanding of the data’s structure and implications.</p>
+<div id="fig-class-distribution" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-class-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="./resources/class_distribution.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Class Distribution"><img src="./resources/class_distribution.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-class-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Class Distribution
+</figcaption>
+</figure>
+</div>
+<p>The imbalance in target classes (see <a href="#tbl-class-distribution" class="quarto-xref">Table&nbsp;2</a> and <a href="#fig-class-distribution" class="quarto-xref">Figure&nbsp;1</a>) necessitated the use of stratified sampling during train-test splits to ensure fair representation of all classes.</p>
+<p>Following the initial exploration of class imbalance in the dataset, we conducted a deeper analysis of certain features to assess their behavior and potential influence on match outcomes. This analysis aimed to provide a clearer understanding of the data’s structure and implications.</p>
 </section>
 </section>
 <section id="correlation-analysis-for-player-metrics" class="level3" data-number="2.1.2">
 <h3 data-number="2.1.2" class="anchored" data-anchor-id="correlation-analysis-for-player-metrics"><span class="header-section-number">2.1.2</span> Correlation Analysis for Player Metrics</h3>
-<p>The first heatmap visualises the correlation matrix of selected <strong>home player statistics</strong>, highlighting the relationships between features such as accurate crosses, aerials won, assists, and big chances created. A moderate correlation is observed between <strong>big chances created</strong> and <strong>assists</strong> (0.70), as well as between <strong>accurate crosses</strong> and <strong>big chances created</strong> (0.56). These relationships suggest that these metrics may jointly influence a team’s success, warranting their consideration in the feature engineering process.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="resources/home_player_matrix.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Correlation Matrix: Home Player"><img src="resources/home_player_matrix.png" class="img-fluid figure-img" alt="Correlation Matrix: Home Player"></a></p>
-<figcaption>Correlation Matrix: Home Player</figcaption>
+<p>The first heatmap (<a href="#fig-player-correlation" class="quarto-xref">Figure&nbsp;2</a>) visualizes the correlation matrix of selected <strong>home player statistics</strong>, highlighting the relationships between features such as accurate crosses, aerials won, assists, and big chances created. A moderate correlation is observed between <strong>big chances created</strong> and <strong>assists</strong> (0.70), as well as between <strong>accurate crosses</strong> and <strong>big chances created</strong> (0.56). These relationships suggest that these metrics may jointly influence a team’s success, warranting their consideration in the feature engineering process.</p>
+<div id="fig-player-correlation" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-player-correlation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="./resources/home_player_matrix.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Correlation Matrix: Home Player"><img src="./resources/home_player_matrix.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-player-correlation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Correlation Matrix: Home Player
+</figcaption>
 </figure>
 </div>
 </section>
 <section id="feature-distributions-and-correlations-with-outcomes" class="level3" data-number="2.1.3">
 <h3 data-number="2.1.3" class="anchored" data-anchor-id="feature-distributions-and-correlations-with-outcomes"><span class="header-section-number">2.1.3</span> Feature Distributions and Correlations with Outcomes</h3>
-<p>Figures 2 and 3 illustrate the distributions of selected <strong>home team statistics</strong> (e.g., <strong>shots total</strong>, <strong>shots inside the box</strong>, <strong>passes</strong>, and <strong>successful passes</strong>) and their correlations with the <strong>home wins</strong> target class. Key observations include:</p>
+<p><strong>?@fig-feature-distribution</strong> and <strong>?@fig-feature-correlation</strong> illustrate the distributions of selected <strong>home team statistics</strong> (e.g., <strong>shots total</strong>, <strong>shots inside the box</strong>, <strong>passes</strong>, and <strong>successful passes</strong>) and their correlations with the <strong>home wins</strong> target class. Key observations include:</p>
 <ol type="1">
-<li><p><strong>Feature Distributions:</strong> The distributions for metrics such as <strong>shots total</strong> and <strong>successful passes</strong> exhibit peaks at discrete values, reflecting their aggregation over matches. It can also be seen that from the selected metrics that the sum of shots a team made inside the box correlacted the most with a home win.</p></li>
+<li><p><strong>Feature Distributions:</strong> The distributions for metrics such as <strong>shots total</strong> and <strong>successful passes</strong> exhibit peaks at discrete values, reflecting their aggregation across matches. It can also be seen that of the selected metrics, the sum of shots a team made inside the box correlated most strongly with a home win.</p></li>
 <li><p><strong>Correlations:</strong> The positive correlations between these features and <strong>home wins</strong> reinforce their potential importance in predicting match outcomes. For instance, metrics like <strong>shots inside the box</strong> have a notable correlation of approximately 0.2 with <strong>home wins</strong>, indicating their predictive relevance.</p></li>
 </ol>
-<p><img src="resources/home_team_distribution.png" class="img-fluid" alt="Feature Distribution and Correlation Analysis 1"> <img src="resources/home_team_matrix.png" class="img-fluid" alt="Feature Distribution and Correlation Analysis 2"></p>
+<p><img src="./resources/home_team_distribution.png" id="fig-feature-distribution" class="img-fluid" alt="Feature Distribution and Correlation Analysis 1"> <img src="./resources/home_team_matrix.png" id="fig-feature-correlation" class="img-fluid" alt="Feature Distribution and Correlation Analysis 2"></p>
 </section>
 <section id="implications-for-feature-engineering" class="level3" data-number="2.1.4">
 <h3 data-number="2.1.4" class="anchored" data-anchor-id="implications-for-feature-engineering"><span class="header-section-number">2.1.4</span> Implications for Feature Engineering</h3>
@@ -503,7 +529,7 @@ div.csl-indent {
 </section>
 <section id="data-cleaning" class="level3" data-number="2.1.5">
 <h3 data-number="2.1.5" class="anchored" data-anchor-id="data-cleaning"><span class="header-section-number">2.1.5</span> Data Cleaning</h3>
-<p>During preprocessing, missing values in player statistics, such as <code>PLAYER_CAPTAIN</code>, were replaced with zeros. Aggregated player data was further combined with team statistics, ensuring a consistent structure for all matches. Outliers in features like <code>TEAM_SHOTS_TOTAL</code> were retained to preserve their influence on match outcomes. In addtion Coloumns that were not used in the test data such as the league or player names were dropped.</p>
+<p>During preprocessing, missing values in player statistics, such as <code>PLAYER_CAPTAIN</code>, were replaced with zeros. Aggregated player data was further combined with team statistics, ensuring a consistent structure for all matches. Outliers in features like <code>TEAM_SHOTS_TOTAL</code> were retained to preserve their influence on match outcomes. In addition, columns that were not used in the test data, such as the league or player names were dropped.</p>
 </section>
 <section id="feature-engineering" class="level3" data-number="2.1.6">
 <h3 data-number="2.1.6" class="anchored" data-anchor-id="feature-engineering"><span class="header-section-number">2.1.6</span> Feature Engineering</h3>
@@ -519,8 +545,7 @@ div.csl-indent {
 <h2 data-number="2.2" class="anchored" data-anchor-id="methodological-approaches-with-pros-cons"><span class="header-section-number">2.2</span> Methodological Approaches with Pros &amp; Cons</h2>
 <section id="logistic-regression" class="level3" data-number="2.2.1">
 <h3 data-number="2.2.1" class="anchored" data-anchor-id="logistic-regression"><span class="header-section-number">2.2.1</span> Logistic Regression</h3>
-<p><strong>Overview:</strong><br>
-Logistic Regression is a statistical model that is widely used for binary classification problems. It estimates the probability of an event occurring by fitting data to a logistic curve. For multiclass problems, extensions like multinomial logistic regression are employed.</p>
+<p><strong>Overview:</strong> Logistic Regression is a statistical model that is widely used for binary classification problems. It estimates the probability of an event occurring by fitting data to a logistic curve. For multiclass problems, extensions like multinomial logistic regression are employed.</p>
 <p><strong>Advantages:</strong></p>
 <ul>
 <li>Simple and easy to interpret, making it ideal for understanding feature importance <span class="citation" data-cites="Hosmer2013">(<a href="#ref-Hosmer2013" role="doc-biblioref">Hosmer, Lemeshow, and Sturdivant 2013</a>)</span>.</li>
@@ -546,7 +571,7 @@ Random Forest is an ensemble learning method that constructs multiple decision t
 </ul>
 <p><strong>Disadvantages:</strong></p>
 <ul>
-<li>Computationally intensive, especially with large datasets or many trees <span class="citation" data-cites="Breiman2001">(<a href="#ref-Breiman2001" role="doc-biblioref">Breiman 2001</a>)</span>.</li>
+<li>Computationally intensive, especially for large datasets or many trees <span class="citation" data-cites="Breiman2001">(<a href="#ref-Breiman2001" role="doc-biblioref">Breiman 2001</a>)</span>.</li>
 <li>Less interpretable than simpler models like Logistic Regression.</li>
 </ul>
 <hr>
@@ -554,11 +579,11 @@ Random Forest is an ensemble learning method that constructs multiple decision t
 <section id="xgboost" class="level3" data-number="2.2.3">
 <h3 data-number="2.2.3" class="anchored" data-anchor-id="xgboost"><span class="header-section-number">2.2.3</span> XGBoost</h3>
 <p><strong>Overview:</strong><br>
-XGBoost is an advanced implementation of gradient boosting designed for speed and efficiency. It builds trees iteratively, focusing on optimising predictive accuracy through regularisation and advanced optimisation techniques.</p>
+XGBoost is an advanced implementation of gradient boosting designed for speed and efficiency. It builds trees iteratively, focusing on optimizing predictive accuracy through regularization and advanced optimization techniques.</p>
 <p><strong>Advantages:</strong></p>
 <ul>
 <li>Achieves state-of-the-art predictive performance on structured datasets <span class="citation" data-cites="Chen2016">(<a href="#ref-Chen2016" role="doc-biblioref">Chen and Guestrin 2016</a>)</span>.</li>
-<li>Regularisation controls overfitting better than traditional gradient boosting.</li>
+<li>Regularization controls overfitting better than traditional gradient boosting.</li>
 <li>Flexible with custom loss functions and supports parallel processing.</li>
 </ul>
 <p><strong>Disadvantages:</strong></p>
@@ -571,7 +596,7 @@ XGBoost is an advanced implementation of gradient boosting designed for speed an
 <section id="lightgbm" class="level3" data-number="2.2.4">
 <h3 data-number="2.2.4" class="anchored" data-anchor-id="lightgbm"><span class="header-section-number">2.2.4</span> LightGBM</h3>
 <p><strong>Overview:</strong><br>
-LightGBM (Light Gradient Boosting Machine) is a fast and efficient gradient boosting framework designed for large-scale datasets. It optimises both accuracy and scalability by leveraging histogram-based learning.</p>
+LightGBM (Light Gradient Boosting Machine) is a fast and efficient gradient boosting framework designed for large-scale datasets. It optimizes both accuracy and scalability by leveraging histogram-based learning.</p>
 <p><strong>Advantages:</strong></p>
 <ul>
 <li>Significantly faster training and lower memory usage compared to XGBoost <span class="citation" data-cites="Ke2017">(<a href="#ref-Ke2017" role="doc-biblioref">Ke et al. 2017</a>)</span>.</li>
@@ -588,12 +613,18 @@ LightGBM (Light Gradient Boosting Machine) is a fast and efficient gradient boos
 </section>
 <section id="comparison-of-models" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="comparison-of-models"><span class="header-section-number">2.3</span> Comparison of Models</h2>
+<div id="tbl-model-comparison" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-model-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: Comparison of key advantages, disadvantages, and best use cases for Logistic Regression, Random Forest, XGBoost, and LightGBM.
+</figcaption>
+<div aria-describedby="tbl-model-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
 <col style="width: 6%">
-<col style="width: 30%">
-<col style="width: 31%">
-<col style="width: 31%">
+<col style="width: 36%">
+<col style="width: 29%">
+<col style="width: 28%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -618,26 +649,29 @@ LightGBM (Light Gradient Boosting Machine) is a fast and efficient gradient boos
 </tr>
 <tr class="odd">
 <td>XGBoost</td>
-<td>- High predictive performance; regularisation to reduce overfitting; supports custom loss functions <span class="citation" data-cites="Chen2016">(<a href="#ref-Chen2016" role="doc-biblioref">Chen and Guestrin 2016</a>)</span>.</td>
+<td>- High predictive performance; regularization to reduce overfitting; supports custom loss functions <span class="citation" data-cites="Chen2016">(<a href="#ref-Chen2016" role="doc-biblioref">Chen and Guestrin 2016</a>)</span>.</td>
 <td>- Hyperparameter tuning is computationally expensive; less interpretable <span class="citation" data-cites="Chen2016">(<a href="#ref-Chen2016" role="doc-biblioref">Chen and Guestrin 2016</a>)</span>.</td>
 <td>- Competitions or tasks requiring high accuracy and scalability.</td>
 </tr>
 <tr class="even">
 <td>LightGBM</td>
-<td>- Fast and efficient; handles large-scale datasets; optimised for sparse data <span class="citation" data-cites="Ke2017">(<a href="#ref-Ke2017" role="doc-biblioref">Ke et al. 2017</a>)</span>.</td>
+<td>- Fast and efficient; handles large-scale datasets; optimized for sparse data <span class="citation" data-cites="Ke2017">(<a href="#ref-Ke2017" role="doc-biblioref">Ke et al. 2017</a>)</span>.</td>
 <td>- Can overfit on small datasets; requires careful hyperparameter tuning <span class="citation" data-cites="Ke2017">(<a href="#ref-Ke2017" role="doc-biblioref">Ke et al. 2017</a>)</span>.</td>
 <td>- Large, high-dimensional datasets or tasks involving sparse features.</td>
 </tr>
 </tbody>
 </table>
+</div>
+</figure>
+</div>
 </section>
 </section>
 <section id="model-selection-tuning-validation" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Model Selection, Tuning &amp; Validation</h1>
 <section id="hyperparameter-tuning-strategy" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="hyperparameter-tuning-strategy"><span class="header-section-number">3.1</span> Hyperparameter Tuning Strategy</h2>
-<p>To optimise model performance, we employed hyperparameter tuning using RandomizedSearchCV, a method that allows efficient exploration of hyperparameter spaces. Unlike exhaustive grid search, this approach samples a predefined number of configurations, significantly reducing computational cost while maintaining robust optimisation.</p>
-<p>The training dataset was split into training and validation subsets using stratified sampling to preserve the class distribution. First a subset of the data (5% sample) was used for initial tuning to save computational resources, and the best singular model was retrained on the whole dataset. In a subsequent iteration of our modelling phase, we decided to perform hyperparameter tuning on the entire dataset and then train all models on the dataset. This is mainly due to the fact that after our first submission, the difference between our accuracy on the validation set and the final score from the challenge did not match well.</p>
+<p>To optimize model performance, we employed hyperparameter tuning using RandomizedSearchCV, a method that allows efficient exploration of hyperparameter spaces. Unlike exhaustive grid search, this approach samples a predefined number of configurations, significantly reducing computational cost while maintaining robust optimization.</p>
+<p>The training dataset was split into training and validation subsets using stratified sampling to preserve the class distribution. First, a subset of the data (5% sample) was used for initial tuning to save computational resources, and the best singular model was retrained on the whole dataset. In a subsequent iteration of our modeling phase, we decided to perform hyperparameter tuning on the entire dataset and then train all models on the dataset. This is mainly due to the fact that after our first submission, the difference between our accuracy on the validation set and the final score from the challenge did not match well.</p>
 <p>Below is the Python implementation of the hyperparameter tuning process:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define models and parameter distributions</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>models <span class="op">=</span> {</span>
@@ -708,26 +742,32 @@ LightGBM (Light Gradient Boosting Machine) is a fast and efficient gradient boos
 </section>
 <section id="validation-framework" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="validation-framework"><span class="header-section-number">3.2</span> Validation Framework</h2>
-<p>To ensure robust evaluation, we employed k-fold cross-validation with three folds. This approach allowed us to test model performance across multiple data splits, reducing the risk of overfitting and providing a more reliable assessment of generalisation. Stratified sampling was used to maintain the original class distribution in each fold, preventing biases caused by class imbalance.</p>
+<p>To ensure robust evaluation, we employed k-fold cross-validation with three folds. This approach allowed us to test model performance across multiple data splits, reducing the risk of overfitting and providing a more reliable assessment of generalization. Stratified sampling was used to maintain the original class distribution in each fold, preventing biases caused by class imbalance.</p>
 </section>
 <section id="performance-metrics" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="performance-metrics"><span class="header-section-number">3.3</span> Performance Metrics</h2>
 <p>To evaluate the models, we relied on two primary metrics:</p>
 <ol type="1">
-<li><p>Accuracy: The proportion of correctly predicted outcomes out of the total predictions. While accuracy provides a general sense of model performance, it can be misleading in cases of imbalanced datasets like ours, where certain outcomes dominate.</p></li>
-<li><p>F1 Score (Macro Average): This metric considers the harmonic mean of precision and recall for all classes, treating them equally regardless of their frequency. The macro-average F1 score is particularly important for this project to ensure that the model performs well across all classes (Home Wins, Draws, and Away Wins).</p></li>
+<li><p><strong>Accuracy:</strong> The proportion of correctly predicted outcomes out of the total predictions. While accuracy provides a general sense of model performance, it can be misleading in cases of imbalanced datasets like ours, where certain outcomes dominate.</p></li>
+<li><p><strong>F1 Score (Macro Average):</strong> This metric considers the harmonic mean of precision and recall for all classes, treating them equally regardless of their frequency. The macro-average F1 score is particularly important for this project to ensure that the model performs well across all classes (Home Wins, Draws, and Away Wins).</p></li>
 </ol>
 <p>Additionally, confusion matrices were used to provide a detailed breakdown of predictions versus actual outcomes, highlighting strengths and weaknesses for each class.</p>
 </section>
 <section id="results-of-hyperparameter-tuning" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="results-of-hyperparameter-tuning"><span class="header-section-number">3.4</span> Results of Hyperparameter Tuning</h2>
-<p>The table below summarises the performance metrics for each model after hyperparameter tuning using the validation set:</p>
+<p>The table below summarizes the performance metrics for each model after hyperparameter tuning using the validation set:</p>
+<div id="tbl-hyperparameter-tuning" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-hyperparameter-tuning-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4: Results of hyperparameter tuning for Logistic Regression, Random Forest, XGBoost, and LightGBM models.
+</figcaption>
+<div aria-describedby="tbl-hyperparameter-tuning-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
-<col style="width: 19%">
+<col style="width: 16%">
 <col style="width: 10%">
 <col style="width: 17%">
-<col style="width: 51%">
+<col style="width: 55%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -764,55 +804,74 @@ LightGBM (Light Gradient Boosting Machine) is a fast and efficient gradient boos
 </tr>
 </tbody>
 </table>
-<p>These are the results for the hyperparameter tuning, the table shows the model with the corresponding accuracy and F1 score and the best parameters. After the hyperparameter tuning we trained those models with the best parameters on the whole dataset.</p>
+</div>
+</figure>
+</div>
+<p>These are the results for the hyperparameter tuning, <a href="#tbl-hyperparameter-tuning" class="quarto-xref">Table&nbsp;4</a> shows the model with the corresponding accuracy and F1 score and the best parameters. After the hyperparameter tuning, we trained those models with the best parameters on the whole dataset.</p>
 </section>
 </section>
 <section id="final-chosen-solution-in-depth-analysis" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Final Chosen Solution &amp; In-Depth Analysis</h1>
 <section id="best-performing-approach" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="best-performing-approach"><span class="header-section-number">4.1</span> Best Performing Approach</h2>
-<p>After training the models on the full dataset and evaluating their performance both on a held-out validation set and the competition platform, the <strong>Random Forest</strong> emerged as the best-performing model with a competitive accuracy of <strong>0.4879</strong> on the challenge leaderboard. While other models such as XGBoost and LightGBM also performed reasonably well, Random Forest demonstrated better generalisation and robustness when applied to unseen test data. It ranked <strong>279 out of 832 submissions</strong>, placing it significantly above the baseline model.</p>
+<p>After training the models on the full dataset and evaluating their performance both on a held-out validation set and the competition platform, the <strong>Random Forest</strong> emerged as the best-performing model with a competitive accuracy of <strong>0.4879</strong> on the challenge leaderboard. While other models such as XGBoost and LightGBM also performed reasonably well, Random Forest demonstrated better generalization and robustness when applied to unseen test data. It ranked <strong>279 out of 832 submissions</strong>, placing it significantly above the baseline model.</p>
 </section>
 <section id="in-depth-model-evaluation" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="in-depth-model-evaluation"><span class="header-section-number">4.2</span> In-Depth Model Evaluation</h2>
 <section id="logistic-regression-1" class="level3" data-number="4.2.1">
 <h3 data-number="4.2.1" class="anchored" data-anchor-id="logistic-regression-1"><span class="header-section-number">4.2.1</span> Logistic Regression</h3>
-<p>Logistic Regression, despite its simplicity, struggled to capture the non-linear relationships in the data. Its accuracy on the validation set was <strong>45%</strong>, and its performance on the challenge platform was slightly lower at <strong>43.28%</strong>. The model demonstrated a preference for the majority class (Home Wins) but struggled with minority classes (Draws and Away Wins). The confusion matrix revealed an imbalance in predictions, particularly for the Draw class, which significantly reduced its macro F1-score.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="resources/Logistic_Regression.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Confusion Matrix Logistic Regression"><img src="resources/Logistic_Regression.png" class="img-fluid figure-img" alt="Confusion Matrix Logistic Regression"></a></p>
-<figcaption>Confusion Matrix Logistic Regression</figcaption>
+<p>Logistic Regression, despite its simplicity, struggled to capture the non-linear relationships in the data. Its accuracy on the validation set was <strong>45%</strong>, and its performance on the challenge platform was slightly lower at <strong>43.28%</strong>. The model demonstrated a preference for the majority class (Home Wins) but struggled with minority classes (Draws and Away Wins). The confusion matrix (<a href="#fig-logistic-regression-confusion-matrix" class="quarto-xref">Figure&nbsp;3</a>) revealed an imbalance in predictions, particularly for the Draw class, which significantly reduced its macro F1-score.</p>
+<div id="fig-logistic-regression-confusion-matrix" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-logistic-regression-confusion-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="resources/Logistic_Regression.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: Confusion Matrix Logistic Regression"><img src="resources/Logistic_Regression.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-logistic-regression-confusion-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Confusion Matrix Logistic Regression
+</figcaption>
 </figure>
 </div>
 </section>
 <section id="random-forest-1" class="level3" data-number="4.2.2">
 <h3 data-number="4.2.2" class="anchored" data-anchor-id="random-forest-1"><span class="header-section-number">4.2.2</span> Random Forest</h3>
-<p>Random Forest achieved a validation accuracy of <strong>49%</strong> and maintained this level of performance on the challenge platform with an accuracy of <strong>48.79%</strong>. The confusion matrix indicated that Random Forest effectively captured the majority class (Home Wins) while achieving reasonable performance for Away Wins. However, it showed limited success in predicting Draws, as evidenced by the low recall for this class.</p>
-<p>Key strengths of Random Forest include its ability to model complex feature interactions and provide consistent performance across datasets, making it a reliable choice for this task.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="resources/Random_Forest.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Confusion Matrix Random Forest"><img src="resources/Random_Forest.png" class="img-fluid figure-img" alt="Confusion Matrix Random Forest"></a></p>
-<figcaption>Confusion Matrix Random Forest</figcaption>
+<p>Random Forest achieved a validation accuracy of <strong>49%</strong> and maintained this level of performance on the challenge platform with an accuracy of <strong>48.79%</strong>. The confusion matrix (<a href="#fig-random-forest-confusion-matrix" class="quarto-xref">Figure&nbsp;4</a>) indicated that Random Forest effectively captured the majority class (Home Wins) while achieving reasonable performance for Away Wins. However, it showed limited success in predicting Draws, as evidenced by the low recall for this class.</p>
+<p>Key strengths of Random Forest include its ability to model complex feature interactions and to provide consistent performance across datasets, making it a reliable choice for this task.</p>
+<div id="fig-random-forest-confusion-matrix" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-random-forest-confusion-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="resources/Random_Forest.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;4: Confusion Matrix Random Forest"><img src="resources/Random_Forest.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-random-forest-confusion-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Confusion Matrix Random Forest
+</figcaption>
 </figure>
 </div>
 </section>
 <section id="xgboost-1" class="level3" data-number="4.2.3">
 <h3 data-number="4.2.3" class="anchored" data-anchor-id="xgboost-1"><span class="header-section-number">4.2.3</span> XGBoost</h3>
-<p>XGBoost performed similarly to Random Forest on both the validation set and the challenge platform, achieving leaderboard accuracy of <strong>48.49%</strong>. While XGBoost excelled in handling imbalanced data through boosting iterations, its computational overhead and sensitivity to hyperparameter tuning posed challenges. Its confusion matrix revealed a similar pattern to Random Forest, with strong performance for Home Wins but weaker performance for Draws.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="resources/XGBC.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Confusion Matrix XGBoost"><img src="resources/XGBC.png" class="img-fluid figure-img" alt="Confusion Matrix XGBoost"></a></p>
-<figcaption>Confusion Matrix XGBoost</figcaption>
+<p>XGBoost performed similarly to Random Forest on both the validation set and the challenge platform, achieving leaderboard accuracy of <strong>48.49%</strong>. While XGBoost excelled in handling imbalanced data through boosting iterations, its computational overhead and sensitivity to hyperparameter tuning posed challenges. Its confusion matrix (<a href="#fig-xgboost-confusion-matrix" class="quarto-xref">Figure&nbsp;5</a>) revealed a similar pattern to Random Forest, with strong performance for Home Wins but weaker performance for Draws.</p>
+<div id="fig-xgboost-confusion-matrix" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-xgboost-confusion-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="resources/XGBC.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;5: Confusion Matrix XGBoost"><img src="resources/XGBC.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-xgboost-confusion-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Confusion Matrix XGBoost
+</figcaption>
 </figure>
 </div>
 </section>
 <section id="lightgbm-1" class="level3" data-number="4.2.4">
 <h3 data-number="4.2.4" class="anchored" data-anchor-id="lightgbm-1"><span class="header-section-number">4.2.4</span> LightGBM</h3>
-<p>LightGBM demonstrated competitive performance with a leaderboard accuracy of <strong>48.48%</strong>. Its efficiency in handling large-scale data and sparse features made it well-suited for this project. However, like XGBoost, it struggled to achieve high recall for the Draw class, leading to a lower macro F1-score. Despite these limitations, LightGBM’s fast training and inference times make it an attractive option for large-scale deployments.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="resources/LGBM.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Confusion Matrix LightGBM"><img src="resources/LGBM.png" class="img-fluid figure-img" alt="Confusion Matrix LightGBM"></a></p>
-<figcaption>Confusion Matrix LightGBM</figcaption>
+<p>LightGBM demonstrated competitive performance with a leaderboard accuracy of <strong>48.48%</strong>. Its efficiency in handling large-scale data and sparse features made it well-suited for this project. However, like XGBoost, it struggled to achieve high recall for the Draw class (<a href="#fig-lightgbm-confusion-matrix" class="quarto-xref">Figure&nbsp;6</a>), leading to a lower macro F1-score. Despite these limitations, LightGBM’s fast training and inference times make it an attractive option for large-scale deployments.</p>
+<div id="fig-lightgbm-confusion-matrix" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-lightgbm-confusion-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="resources/LGBM.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;6: Confusion Matrix LightGBM"><img src="resources/LGBM.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lightgbm-confusion-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Confusion Matrix LightGBM
+</figcaption>
 </figure>
 </div>
 </section>
@@ -823,11 +882,17 @@ LightGBM (Light Gradient Boosting Machine) is a fast and efficient gradient boos
 </section>
 <section id="validation-and-leaderboard-results" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="validation-and-leaderboard-results"><span class="header-section-number">4.3</span> Validation and Leaderboard Results</h2>
+<div id="tbl-validation-leaderboard-results" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-validation-leaderboard-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5: Validation and leaderboard results for Logistic Regression, Random Forest, XGBoost, and LightGBM models.
+</figcaption>
+<div aria-describedby="tbl-validation-leaderboard-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
-<col style="width: 22%">
-<col style="width: 22%">
+<col style="width: 19%">
 <col style="width: 23%">
+<col style="width: 24%">
 <col style="width: 11%">
 <col style="width: 20%">
 </colgroup>
@@ -871,11 +936,15 @@ LightGBM (Light Gradient Boosting Machine) is a fast and efficient gradient boos
 </tr>
 </tbody>
 </table>
+</div>
+</figure>
+</div>
+<p><a href="#tbl-validation-leaderboard-results" class="quarto-xref">Table&nbsp;5</a> summarizes the performance of each model on the validation set and the challenge leaderboard.</p>
 </section>
 <section id="discussion-of-results" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="discussion-of-results"><span class="header-section-number">4.4</span> Discussion of Results</h2>
 <p>The results highlight the challenges of accurately predicting football match outcomes due to the complexity and variability inherent in the sport. Despite these challenges, the models performed well compared to the baseline, with Random Forest achieving a notable improvement. However, all models struggled with the Draw class, likely due to its lower representation and more ambiguous nature in the dataset.</p>
-<p>The primary takeaway from this analysis is the importance of feature selection in sports analytics. This includes not only identifying the most relevant features but also determining when engineered features may not contribute positively to model performance.</p>
+<p>The primary takeaway from this analysis is the importance of feature selection in sports analytics. This includes not only identifying the most relevant features, but also determining when engineered features may not contribute positively to model performance.</p>
 </section>
 <section id="limitations" class="level2" data-number="4.5">
 <h2 data-number="4.5" class="anchored" data-anchor-id="limitations"><span class="header-section-number">4.5</span> Limitations</h2>
@@ -893,7 +962,7 @@ LightGBM (Light Gradient Boosting Machine) is a fast and efficient gradient boos
 <p>This project explored the use of machine learning techniques to predict football match outcomes, leveraging a dataset rich in team and player statistics. The results demonstrated that ensemble methods, particularly Random Forest, performed robustly on this complex task, achieving a leaderboard ranking significantly above the baseline. Key insights include:</p>
 <ul>
 <li><strong>Feature Selection Matters:</strong> The decision to exclude engineered features such as differences and ratios during final training proved beneficial, highlighting the importance of testing feature relevance comprehensively.</li>
-<li><strong>Class Imbalance Is Challenging:</strong> The imbalance in target classes, particularly the underrepresented Draw category, influenced the models’ ability to generalise, indicating the need for tailored handling of such scenarios in sports analytics.</li>
+<li><strong>Class Imbalance Is Challenging:</strong> The imbalance in target classes, particularly the underrepresented Draw category, influenced the models’ ability to generalize, indicating the need for tailored handling of such scenarios in sports analytics.</li>
 <li><strong>Model Complexity Balances:</strong> Simpler models like Logistic Regression provided interpretability but struggled with the data’s non-linear relationships. In contrast, advanced ensemble methods such as Random Forest and XGBoost excelled in predictive performance.</li>
 </ul>
 </section>
@@ -912,9 +981,10 @@ LightGBM (Light Gradient Boosting Machine) is a fast and efficient gradient boos
 <ul>
 <li><strong>Augment the Dataset:</strong> Incorporate external data sources, such as live match statistics, player fitness levels, and betting odds, to provide additional context and improve feature richness.</li>
 <li><strong>Explore Advanced Models:</strong> Investigate the use of neural networks and hybrid ensemble methods to capture non-linear and hierarchical relationships more effectively.</li>
-<li><strong>Improve Draw Predictions:</strong> Develop targeted strategies to handle the Draw class, such as oversampling techniques, cost-sensitive learning, or even specialised sub-models designed for this specific outcome.</li>
+<li><strong>Improve Draw Predictions:</strong> Develop targeted strategies to handle the Draw class, such as oversampling techniques, cost-sensitive learning, or even specialized sub-models designed for this specific outcome.</li>
 </ul>
 <p>By addressing these limitations and exploring new opportunities, future iterations of this project can aim for even greater accuracy, insights, and potentially a top-10 ranking on competitive platforms.</p>
+<div style="page-break-after: always;"></div>
 </section>
 </section>
 <section id="references" class="level1" data-number="6">
