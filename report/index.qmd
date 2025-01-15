@@ -33,7 +33,7 @@ date: last-modified
 number-sections: true
 link-citations: true
 notebook-links: false
-execute: 
+execute:
   eval: true
   echo: true
   output: true
@@ -78,7 +78,7 @@ Several challenges inherent in this dataset include:
 
 The dataset provided for this project includes football match statistics aggregated at both team and player levels, with separate data for home and away teams. The data is structured into four CSV files for home and away teams and players, along with two additional files containing the target labels. These labels represent match outcomes as one of three categories: home win, draw, or away win. The aim is to leverage this rich dataset to build a machine learning model capable of predicting match outcomes with high accuracy. The training dataset contains **12,303 rows** and **884 features**, comprising the given data. Each row corresponds to a match, and the target variable represents the match outcome as one of three classes: `HOME_WINS`, `DRAW`, or `AWAY_WINS`, encoded as `[0, 1, 2]`.
 
-The target class distribution is imbalanced, with **43.5% home wins**, **30.6% away wins**, and **25.9% draws**. This imbalance required careful handling during the model training phase to prevent biased predictions toward the majority class.
+The target class distribution is imbalanced, with **43.5% home wins**, **30.6% away wins**, and **25.9% draws**. This imbalance required careful handling during the model training phase to prevent biased predictions towards the majority class.
 
 ### Exploratory Data Analysis (EDA)
 
@@ -86,53 +86,55 @@ The target class distribution is imbalanced, with **43.5% home wins**, **30.6% a
 
 A quick summary of the training dataset revealed meaningful patterns in team performance metrics. The table below highlights the statistics for the top 10 features:
 
-| **Feature**                              | **Count** | **Mean** | **Std Dev** | **Min** | **25%** | **50%** | **75%** | **Max** |
-|------------------------------------------|-----------|----------|-------------|---------|---------|---------|---------|---------|
-| home_TEAM_SHOTS_TOTAL_season_sum         | 12,303    | 4.30     | 2.91        | 0.0     | 2.0     | 4.0     | 6.0     | 10.0    |
-| home_TEAM_SHOTS_INSIDEBOX_season_sum     | 12,303    | 3.82     | 3.07        | 0.0     | 1.0     | 3.0     | 6.0     | 10.0    |
-| home_TEAM_SHOTS_OFF_TARGET_season_sum    | 12,303    | 4.51     | 2.81        | 0.0     | 2.0     | 4.0     | 6.0     | 10.0    |
-| home_TEAM_SHOTS_ON_TARGET_season_sum     | 12,303    | 4.15     | 2.86        | 0.0     | 2.0     | 4.0     | 6.0     | 10.0    |
-| home_TEAM_SHOTS_OUTSIDEBOX_season_sum    | 12,303    | 4.01     | 3.04        | 0.0     | 1.0     | 4.0     | 6.0     | 10.0    |
-| home_TEAM_PASSES_season_sum              | 12,303    | 3.85     | 3.07        | 0.0     | 1.0     | 3.0     | 6.0     | 10.0    |
-| home_TEAM_SUCCESSFUL_PASSES_season_sum   | 12,303    | 3.67     | 3.03        | 0.0     | 1.0     | 3.0     | 6.0     | 10.0    |
-| home_TEAM_SAVES_season_sum               | 12,303    | 4.38     | 3.00        | 0.0     | 2.0     | 4.0     | 7.0     | 10.0    |
-| home_TEAM_CORNERS_season_sum             | 12,303    | 4.50     | 2.80        | 0.0     | 2.0     | 4.0     | 6.0     | 10.0    |
-| home_TEAM_FOULS_season_sum               | 12,303    | 4.82     | 3.02        | 0.0     | 3.0     | 5.0     | 7.0     | 10.0    |
+| **Feature**                            | **Count** | **Mean** | **Std Dev** | **Min** | **25%** | **50%** | **75%** | **Max** |
+| -------------------------------------- | --------- | -------- | ----------- | ------- | ------- | ------- | ------- | ------- |
+| home_TEAM_SHOTS_TOTAL_season_sum       | 12,303    | 4.30     | 2.91        | 0.0     | 2.0     | 4.0     | 6.0     | 10.0    |
+| home_TEAM_SHOTS_INSIDEBOX_season_sum   | 12,303    | 3.82     | 3.07        | 0.0     | 1.0     | 3.0     | 6.0     | 10.0    |
+| home_TEAM_SHOTS_OFF_TARGET_season_sum  | 12,303    | 4.51     | 2.81        | 0.0     | 2.0     | 4.0     | 6.0     | 10.0    |
+| home_TEAM_SHOTS_ON_TARGET_season_sum   | 12,303    | 4.15     | 2.86        | 0.0     | 2.0     | 4.0     | 6.0     | 10.0    |
+| home_TEAM_SHOTS_OUTSIDEBOX_season_sum  | 12,303    | 4.01     | 3.04        | 0.0     | 1.0     | 4.0     | 6.0     | 10.0    |
+| home_TEAM_PASSES_season_sum            | 12,303    | 3.85     | 3.07        | 0.0     | 1.0     | 3.0     | 6.0     | 10.0    |
+| home_TEAM_SUCCESSFUL_PASSES_season_sum | 12,303    | 3.67     | 3.03        | 0.0     | 1.0     | 3.0     | 6.0     | 10.0    |
+| home_TEAM_SAVES_season_sum             | 12,303    | 4.38     | 3.00        | 0.0     | 2.0     | 4.0     | 7.0     | 10.0    |
+| home_TEAM_CORNERS_season_sum           | 12,303    | 4.50     | 2.80        | 0.0     | 2.0     | 4.0     | 6.0     | 10.0    |
+| home_TEAM_FOULS_season_sum             | 12,303    | 4.82     | 3.02        | 0.0     | 3.0     | 5.0     | 7.0     | 10.0    |
+:Summary statistics for the top 10 features in the training dataset. {#tbl-feature-stats}
 
-These statistics highlight the variability in team performance metrics, such as shots and passes, which are critical indicators for match outcomes.
+@tbl-feature-stats highlights the variability in team performance metrics, such as shots and passes, which are critical indicators for match outcomes.
 
 #### Class Distribution
 
 The class distribution, as shown in the plot below, reveals a significant imbalance in match outcomes:
 
-| **Class**         | **Count** | **Proportion** |
-|--------------------|-----------|----------------|
-| Home Wins (0)      | 5,356     | 43.5%          |
-| Away Wins (2)      | 3,761     | 30.6%          |
-| Draws (1)          | 3,186     | 25.9%          |
+| **Class**     | **Count** | **Proportion** |
+| ------------- | --------- | -------------- |
+| Home Wins (0) | 5,356     | 43.5%          |
+| Away Wins (2) | 3,761     | 30.6%          |
+| Draws (1)     | 3,186     | 25.9%          |
+:Class distribution of match outcomes in the training dataset. {#tbl-class-distribution}
 
-![Class Distribution](<resources/class_distribution.png>)
+![Class Distribution](./resources/class_distribution.png){#fig-class-distribution}
 
-The imbalance in target classes necessitated the use of stratified sampling during train-test splits to ensure fair representation of all classes.
+The imbalance in target classes (see @tbl-class-distribution and @fig-class-distribution) necessitated the use of stratified sampling during train-test splits to ensure fair representation of all classes.
 
-Following the initial exploration of class imbalance in the dataset, we conducted a deeper analysis of certain features to assess their behaviour and potential influence on match outcomes. This analysis aimed to provide a clearer understanding of the data's structure and implications.
+Following the initial exploration of class imbalance in the dataset, we conducted a deeper analysis of certain features to assess their behavior and potential influence on match outcomes. This analysis aimed to provide a clearer understanding of the data's structure and implications.
 
 ### Correlation Analysis for Player Metrics
 
-The first heatmap visualises the correlation matrix of selected **home player statistics**, highlighting the relationships between features such as accurate crosses, aerials won, assists, and big chances created. A moderate correlation is observed between **big chances created** and **assists** (0.70), as well as between **accurate crosses** and **big chances created** (0.56). These relationships suggest that these metrics may jointly influence a team's success, warranting their consideration in the feature engineering process.
+The first heatmap (@fig-player-correlation) visualizes the correlation matrix of selected **home player statistics**, highlighting the relationships between features such as accurate crosses, aerials won, assists, and big chances created. A moderate correlation is observed between **big chances created** and **assists** (0.70), as well as between **accurate crosses** and **big chances created** (0.56). These relationships suggest that these metrics may jointly influence a team's success, warranting their consideration in the feature engineering process.
 
-![Correlation Matrix: Home Player](<resources/home_player_matrix.png>)
+![Correlation Matrix: Home Player](./resources/home_player_matrix.png){#fig-player-correlation}
 
 ### Feature Distributions and Correlations with Outcomes
 
-Figures 2 and 3 illustrate the distributions of selected **home team statistics** (e.g., **shots total**, **shots inside the box**, **passes**, and **successful passes**) and their correlations with the **home wins** target class. Key observations include:
+@fig-feature-distribution and @fig-feature-correlation illustrate the distributions of selected **home team statistics** (e.g., **shots total**, **shots inside the box**, **passes**, and **successful passes**) and their correlations with the **home wins** target class. Key observations include:
 
-1. **Feature Distributions:** The distributions for metrics such as **shots total** and **successful passes** exhibit peaks at discrete values, reflecting their aggregation over matches. It can also be seen that from the selected metrics that the sum of shots a team made inside the box correlacted the most with a home win.
+1. **Feature Distributions:** The distributions for metrics such as **shots total** and **successful passes** exhibit peaks at discrete values, reflecting their aggregation across matches. It can also be seen that of the selected metrics, the sum of shots a team made inside the box correlated most strongly with a home win.
 
 2. **Correlations:** The positive correlations between these features and **home wins** reinforce their potential importance in predicting match outcomes. For instance, metrics like **shots inside the box** have a notable correlation of approximately 0.2 with **home wins**, indicating their predictive relevance.
 
-![Feature Distribution and Correlation Analysis 1](<resources/home_team_distribution.png>)
-![Feature Distribution and Correlation Analysis 2](<resources/home_team_matrix.png>)
+![Feature Distribution and Correlation Analysis 1](./resources/home_team_distribution.png){#fig-feature-distribution}
+![Feature Distribution and Correlation Analysis 2](./resources/home_team_matrix.png){#fig-feature-correlation}
 
 ### Implications for Feature Engineering
 
@@ -146,7 +148,7 @@ Based on this we can ensure that relevant and impactful features are retained fo
 
 ### Data Cleaning
 
-During preprocessing, missing values in player statistics, such as `PLAYER_CAPTAIN`, were replaced with zeros. Aggregated player data was further combined with team statistics, ensuring a consistent structure for all matches. Outliers in features like `TEAM_SHOTS_TOTAL` were retained to preserve their influence on match outcomes. In addtion Coloumns that were not used in the test data such as the league or player names were dropped.
+During preprocessing, missing values in player statistics, such as `PLAYER_CAPTAIN`, were replaced with zeros. Aggregated player data was further combined with team statistics, ensuring a consistent structure for all matches. Outliers in features like `TEAM_SHOTS_TOTAL` were retained to preserve their influence on match outcomes. In addition, columns that were not used in the test data, such as the league or player names were dropped.
 
 ### Feature Engineering
 
@@ -161,18 +163,18 @@ These engineered features were critical in distinguishing competitive advantages
 
 ### Logistic Regression
 
-**Overview:**  
+**Overview:**
 Logistic Regression is a statistical model that is widely used for binary classification problems. It estimates the probability of an event occurring by fitting data to a logistic curve. For multiclass problems, extensions like multinomial logistic regression are employed.
 
-**Advantages:**  
+**Advantages:**
 
 - Simple and easy to interpret, making it ideal for understanding feature importance [@Hosmer2013].
 - Computationally efficient with minimal assumptions about data distribution.
 - Well-suited for smaller datasets with linearly separable features.
 
-**Disadvantages:**  
+**Disadvantages:**
 
-- Assumes linearity between predictors and the log-odds, which can limit performance on non-linear data [@Hosmer2013].
+- Assumes linearity between predictors and the log-odds, which can limit performance on nonlinear data [@Hosmer2013].
 - Prone to underfitting when dealing with complex or high-dimensional datasets.
 
 ---
@@ -182,15 +184,15 @@ Logistic Regression is a statistical model that is widely used for binary classi
 **Overview:**  
 Random Forest is an ensemble learning method that constructs multiple decision trees and combines their predictions. It leverages the concept of "bagging" to improve predictive accuracy and control overfitting.
 
-**Advantages:**  
+**Advantages:**
 
 - Handles non-linear relationships and interactions effectively [@Breiman2001].
 - Robust to overfitting due to averaging across trees.
 - Automatically ranks feature importance, providing insights into the data.
 
-**Disadvantages:**  
+**Disadvantages:**
 
-- Computationally intensive, especially with large datasets or many trees [@Breiman2001].
+- Computationally intensive, especially for large datasets or many trees [@Breiman2001].
 - Less interpretable than simpler models like Logistic Regression.
 
 ---
@@ -198,15 +200,15 @@ Random Forest is an ensemble learning method that constructs multiple decision t
 ### XGBoost
 
 **Overview:**  
-XGBoost is an advanced implementation of gradient boosting designed for speed and efficiency. It builds trees iteratively, focusing on optimising predictive accuracy through regularisation and advanced optimisation techniques.
+XGBoost is an advanced implementation of gradient boosting designed for speed and efficiency. It builds trees iteratively, focusing on optimizing predictive accuracy through regularization and advanced optimization techniques.
 
-**Advantages:**  
+**Advantages:**
 
 - Achieves state-of-the-art predictive performance on structured datasets [@Chen2016].
 - Regularisation controls overfitting better than traditional gradient boosting.
 - Flexible with custom loss functions and supports parallel processing.
 
-**Disadvantages:**  
+**Disadvantages:**
 
 - Requires extensive hyperparameter tuning, which can be computationally expensive [@Chen2016].
 - Interpretability can be challenging without additional tools.
@@ -216,15 +218,15 @@ XGBoost is an advanced implementation of gradient boosting designed for speed an
 ### LightGBM
 
 **Overview:**  
-LightGBM (Light Gradient Boosting Machine) is a fast and efficient gradient boosting framework designed for large-scale datasets. It optimises both accuracy and scalability by leveraging histogram-based learning.
+LightGBM (Light Gradient Boosting Machine) is a fast and efficient gradient boosting framework designed for large-scale datasets. It optimizes both accuracy and scalability by leveraging histogram-based learning.
 
-**Advantages:**  
+**Advantages:**
 
 - Significantly faster training and lower memory usage compared to XGBoost [@Ke2017].
 - Handles large datasets and sparse features effectively [@Ke2017].
 - Implements advanced techniques like Leaf-wise growth for higher accuracy.
 
-**Disadvantages:**  
+**Disadvantages:**
 
 - Prone to overfitting, particularly on smaller datasets [@Ke2017].
 - Requires careful tuning to achieve optimal performance.
@@ -233,21 +235,24 @@ LightGBM (Light Gradient Boosting Machine) is a fast and efficient gradient boos
 
 ## Comparison of Models
 
-| **Model**              | **Advantages**                                                                                                     | **Disadvantages**                                                                                                    | **Best Use Cases**                                                                                                     |
-|-------------------------|---------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
-| Logistic Regression     | - Simple and interpretable [@Hosmer2013].                                                                         | - Assumes linear relationships; struggles with complex, non-linear data [@Hosmer2013].                              | - Small datasets with linearly separable features or where interpretability is critical.                                |
-| Random Forest           | - Captures non-linear relationships; robust to overfitting; handles categorical data well [@Breiman2001].         | - Computationally intensive; less interpretable compared to simpler models [@Breiman2001].                          | - Medium to large datasets with diverse features; identifying important variables.                                      |
-| XGBoost                 | - High predictive performance; regularisation to reduce overfitting; supports custom loss functions [@Chen2016].  | - Hyperparameter tuning is computationally expensive; less interpretable [@Chen2016].                               | - Competitions or tasks requiring high accuracy and scalability.                                                        |
-| LightGBM                | - Fast and efficient; handles large-scale datasets; optimised for sparse data [@Ke2017].                          | - Can overfit on small datasets; requires careful hyperparameter tuning [@Ke2017].                                  | - Large, high-dimensional datasets or tasks involving sparse features.                                                  |
+| **Model**           | **Advantages**                                                                                                   | **Disadvantages**                                                                          | **Best Use Cases**                                                                       |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
+| Logistic Regression | - Simple and interpretable [@Hosmer2013].                                                                        | - Assumes linear relationships; struggles with complex, non-linear data [@Hosmer2013].     | - Small datasets with linearly separable features or where interpretability is critical. |
+| Random Forest       | - Captures non-linear relationships; robust to overfitting; handles categorical data well [@Breiman2001].        | - Computationally intensive; less interpretable compared to simpler models [@Breiman2001]. | - Medium to large datasets with diverse features; identifying important variables.       |
+| XGBoost             | - High predictive performance; regularisation to reduce overfitting; supports custom loss functions [@Chen2016]. | - Hyperparameter tuning is computationally expensive; less interpretable [@Chen2016].      | - Competitions or tasks requiring high accuracy and scalability.                         |
+| LightGBM            | - Fast and efficient; handles large-scale datasets; optimised for sparse data [@Ke2017].                         | - Can overfit on small datasets; requires careful hyperparameter tuning [@Ke2017].         | - Large, high-dimensional datasets or tasks involving sparse features.                   |
+: Comparison of key advantages, disadvantages, and best use cases for Logistic Regression, Random Forest, XGBoost, and LightGBM. {#tbl-model-comparison}
 
 # Model Selection, Tuning & Validation
 
 ## Hyperparameter Tuning Strategy
-To optimise model performance, we employed hyperparameter tuning using RandomizedSearchCV, a method that allows efficient exploration of hyperparameter spaces. Unlike exhaustive grid search, this approach samples a predefined number of configurations, significantly reducing computational cost while maintaining robust optimisation.
 
-The training dataset was split into training and validation subsets using stratified sampling to preserve the class distribution. First a subset of the data (5% sample) was used for initial tuning to save computational resources, and the best singular model was retrained on the whole dataset. In a subsequent iteration of our modelling phase, we decided to perform hyperparameter tuning on the entire dataset and then train all models on the dataset. This is mainly due to the fact that after our first submission, the difference between our accuracy on the validation set and the final score from the challenge did not match well.
+To optimize model performance, we employed hyperparameter tuning using RandomizedSearchCV, a method that allows efficient exploration of hyperparameter spaces. Unlike exhaustive grid search, this approach samples a predefined number of configurations, significantly reducing computational cost while maintaining robust optimization.
+
+The training dataset was split into training and validation subsets using stratified sampling to preserve the class distribution. First, a subset of the data (5% sample) was used for initial tuning to save computational resources, and the best singular model was retrained on the whole dataset. In a subsequent iteration of our modeling phase, we decided to perform hyperparameter tuning on the entire dataset and then train all models on the dataset. This is mainly due to the fact that after our first submission, the difference between our accuracy on the validation set and the final score from the challenge did not match well.
 
 Below is the Python implementation of the hyperparameter tuning process:
+
 ```python
 # Define models and parameter distributions
 models = {
@@ -316,16 +321,18 @@ for name, cfg in models.items():
     }
     print(f"{name} tuned. Accuracy: {acc:.4f}, F1 Score: {f1:.4f}\n")
 ```
+
 ## Validation Framework
-To ensure robust evaluation, we employed k-fold cross-validation with three folds. This approach allowed us to test model performance across multiple data splits, reducing the risk of overfitting and providing a more reliable assessment of generalisation. Stratified sampling was used to maintain the original class distribution in each fold, preventing biases caused by class imbalance.
+
+To ensure robust evaluation, we employed k-fold cross-validation with three folds. This approach allowed us to test model performance across multiple data splits, reducing the risk of overfitting and providing a more reliable assessment of generalization. Stratified sampling was used to maintain the original class distribution in each fold, preventing biases caused by class imbalance.
 
 ## Performance Metrics
 
 To evaluate the models, we relied on two primary metrics:
 
-1.	Accuracy: The proportion of correctly predicted outcomes out of the total predictions. While accuracy provides a general sense of model performance, it can be misleading in cases of imbalanced datasets like ours, where certain outcomes dominate.
+1. **Accuracy:** The proportion of correctly predicted outcomes out of the total predictions. While accuracy provides a general sense of model performance, it can be misleading in cases of imbalanced datasets like ours, where certain outcomes dominate.
 
-2.	F1 Score (Macro Average): This metric considers the harmonic mean of precision and recall for all classes, treating them equally regardless of their frequency. The macro-average F1 score is particularly important for this project to ensure that the model performs well across all classes (Home Wins, Draws, and Away Wins).
+2. **F1 Score (Macro Average):** This metric considers the harmonic mean of precision and recall for all classes, treating them equally regardless of their frequency. The macro-average F1 score is particularly important for this project to ensure that the model performs well across all classes (Home Wins, Draws, and Away Wins).
 
 Additionally, confusion matrices were used to provide a detailed breakdown of predictions versus actual outcomes, highlighting strengths and weaknesses for each class.
 
