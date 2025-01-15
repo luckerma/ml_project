@@ -182,7 +182,11 @@
 <link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
      
       <meta name="citation_title" content="Football: Can you guess the winner?">
-<meta name="citation_abstract" content="Abstract
+<meta name="citation_abstract" content="Predicting football match outcomes is a challenging task due to the complexity and variability inherent in the sport. This project uses machine learning to build models capable of predicting match results (home win, draw, or away win) using historical team and player statistics. The dataset includes 12,303 rows with 884 features, capturing aggregated metrics for home and away teams and players across multiple leagues.
+
+Key challenges include class imbalance, feature complexity, and data heterogeneity. We explored several models, including Logistic Regression, Random Forest, XGBoost, and LightGBM, with Random Forest performing best in the competition, ranking 279th out of 832 submissions with an accuracy of 48.79%.
+
+Feature engineering, data preprocessing, and hyperparameter tuning were critical to improving model performance. However, challenges such as poor prediction of draws and class imbalance persisted. This report highlights insights from model comparisons, the role of feature selection, and the trade-offs between interpretability and complexity.
 ">
 <meta name="citation_author" content="Luca Uckermann">
 <meta name="citation_author" content="Nikethan Nimalakumaran">
@@ -269,7 +273,9 @@
     <div>
       <div class="abstract">
         <div class="block-title">Abstract</div>
-        <p>Abstract</p>
+        <p>Predicting football match outcomes is a challenging task due to the complexity and variability inherent in the sport. This project uses machine learning to build models capable of predicting match results (home win, draw, or away win) using historical team and player statistics. The dataset includes 12,303 rows with 884 features, capturing aggregated metrics for home and away teams and players across multiple leagues.</p>
+        <p>Key challenges include class imbalance, feature complexity, and data heterogeneity. We explored several models, including Logistic Regression, Random Forest, XGBoost, and LightGBM, with Random Forest performing best in the competition, ranking 279th out of 832 submissions with an accuracy of 48.79%.</p>
+        <p>Feature engineering, data preprocessing, and hyperparameter tuning were critical to improving model performance. However, challenges such as poor prediction of draws and class imbalance persisted. This report highlights insights from model comparisons, the role of feature selection, and the trade-offs between interpretability and complexity.</p>
       </div>
     </div>
 
@@ -382,7 +388,7 @@
 <h3 data-number="2.1.1" class="anchored" data-anchor-id="exploratory-data-analysis-eda"><span class="header-section-number">2.1.1</span> Exploratory Data Analysis (EDA)</h3>
 <section id="key-feature-statistics" class="level4" data-number="2.1.1.1">
 <h4 data-number="2.1.1.1" class="anchored" data-anchor-id="key-feature-statistics"><span class="header-section-number">2.1.1.1</span> Key Feature Statistics</h4>
-<p>A quick summary of the training dataset revealed meaningful patterns in team performance metrics. The table below highlights the statistics for the top 10 features:</p>
+<p>A quick summary of the training dataset revealed meaningful patterns in team performance metrics. The table below highlights the statistics for the top 10 features, all regarding the home team:</p>
 <div id="tbl-feature-stats" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-feature-stats-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -416,7 +422,7 @@ Table&nbsp;1: Summary statistics for the top 10 features in the training dataset
 </thead>
 <tbody>
 <tr class="odd">
-<td>home_TEAM_SHOTS_TOTAL_season_sum</td>
+<td>SHOTS_TOTAL_season_sum</td>
 <td>12,303</td>
 <td>4.30</td>
 <td>2.91</td>
@@ -427,7 +433,7 @@ Table&nbsp;1: Summary statistics for the top 10 features in the training dataset
 <td>10.0</td>
 </tr>
 <tr class="even">
-<td>home_TEAM_SHOTS_INSIDEBOX_season_sum</td>
+<td>SHOTS_INSIDEBOX_season_sum</td>
 <td>12,303</td>
 <td>3.82</td>
 <td>3.07</td>
@@ -438,7 +444,7 @@ Table&nbsp;1: Summary statistics for the top 10 features in the training dataset
 <td>10.0</td>
 </tr>
 <tr class="odd">
-<td>home_TEAM_SHOTS_OFF_TARGET_season_sum</td>
+<td>SHOTS_OFF_TARGET_season_sum</td>
 <td>12,303</td>
 <td>4.51</td>
 <td>2.81</td>
@@ -449,7 +455,7 @@ Table&nbsp;1: Summary statistics for the top 10 features in the training dataset
 <td>10.0</td>
 </tr>
 <tr class="even">
-<td>home_TEAM_SHOTS_ON_TARGET_season_sum</td>
+<td>SHOTS_ON_TARGET_season_sum</td>
 <td>12,303</td>
 <td>4.15</td>
 <td>2.86</td>
@@ -460,7 +466,7 @@ Table&nbsp;1: Summary statistics for the top 10 features in the training dataset
 <td>10.0</td>
 </tr>
 <tr class="odd">
-<td>home_TEAM_SHOTS_OUTSIDEBOX_season_sum</td>
+<td>SHOTS_OUTSIDEBOX_season_sum</td>
 <td>12,303</td>
 <td>4.01</td>
 <td>3.04</td>
@@ -471,7 +477,7 @@ Table&nbsp;1: Summary statistics for the top 10 features in the training dataset
 <td>10.0</td>
 </tr>
 <tr class="even">
-<td>home_TEAM_PASSES_season_sum</td>
+<td>PASSES_season_sum</td>
 <td>12,303</td>
 <td>3.85</td>
 <td>3.07</td>
@@ -482,7 +488,7 @@ Table&nbsp;1: Summary statistics for the top 10 features in the training dataset
 <td>10.0</td>
 </tr>
 <tr class="odd">
-<td>home_TEAM_SUCCESSFUL_PASSES_season_sum</td>
+<td>SUCCESSFUL_PASSES_season_sum</td>
 <td>12,303</td>
 <td>3.67</td>
 <td>3.03</td>
@@ -493,7 +499,7 @@ Table&nbsp;1: Summary statistics for the top 10 features in the training dataset
 <td>10.0</td>
 </tr>
 <tr class="even">
-<td>home_TEAM_SAVES_season_sum</td>
+<td>SAVES_season_sum</td>
 <td>12,303</td>
 <td>4.38</td>
 <td>3.00</td>
@@ -504,7 +510,7 @@ Table&nbsp;1: Summary statistics for the top 10 features in the training dataset
 <td>10.0</td>
 </tr>
 <tr class="odd">
-<td>home_TEAM_CORNERS_season_sum</td>
+<td>CORNERS_season_sum</td>
 <td>12,303</td>
 <td>4.50</td>
 <td>2.80</td>
@@ -515,7 +521,7 @@ Table&nbsp;1: Summary statistics for the top 10 features in the training dataset
 <td>10.0</td>
 </tr>
 <tr class="even">
-<td>home_TEAM_FOULS_season_sum</td>
+<td>FOULS_season_sum</td>
 <td>12,303</td>
 <td>4.82</td>
 <td>3.02</td>
@@ -600,7 +606,7 @@ Figure&nbsp;2: Correlation Matrix: Home Player
 </section>
 <section id="feature-distributions-and-correlations-with-outcomes" class="level3" data-number="2.1.3">
 <h3 data-number="2.1.3" class="anchored" data-anchor-id="feature-distributions-and-correlations-with-outcomes"><span class="header-section-number">2.1.3</span> Feature Distributions and Correlations with Outcomes</h3>
-<p><strong>?@fig-feature-distribution</strong> and <strong>?@fig-feature-correlation</strong> illustrate the distributions of selected <strong>home team statistics</strong> (e.g., <strong>shots total</strong>, <strong>shots inside the box</strong>, <strong>passes</strong>, and <strong>successful passes</strong>) and their correlations with the <strong>home wins</strong> target class. Key observations include:</p>
+<p>The following figures illustrate the distributions of selected <strong>home team statistics</strong> (e.g., <strong>shots total</strong>, <strong>shots inside the box</strong>, <strong>passes</strong>, and <strong>successful passes</strong>) and their correlations with the <strong>home wins</strong> target class. Key observations include:</p>
 <ol type="1">
 <li><p><strong>Feature Distributions:</strong> The distributions for metrics such as <strong>shots total</strong> and <strong>successful passes</strong> exhibit peaks at discrete values, reflecting their aggregation across matches. It can also be seen that of the selected metrics, the sum of shots a team made inside the box correlated most strongly with a home win.</p></li>
 <li><p><strong>Correlations:</strong> The positive correlations between these features and <strong>home wins</strong> reinforce their potential importance in predicting match outcomes. For instance, metrics like <strong>shots inside the box</strong> have a notable correlation of approximately 0.2 with <strong>home wins</strong>, indicating their predictive relevance.</p></li>
@@ -766,69 +772,77 @@ Table&nbsp;3: Comparison of key advantages, disadvantages, and best use cases fo
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define models and parameter distributions</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>models <span class="op">=</span> {</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"LogisticRegression"</span>: {</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"estimator"</span>: LogisticRegression(max_iter<span class="op">=</span><span class="dv">2000</span>, solver<span class="op">=</span><span class="st">"lbfgs"</span>, n_jobs<span class="op">=-</span><span class="dv">1</span>),</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"param_dist"</span>: {</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">"C"</span>: loguniform(<span class="fl">1e-2</span>, <span class="fl">1e1</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    },</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"RandomForest"</span>: {</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"estimator"</span>: RandomForestClassifier(random_state<span class="op">=</span><span class="dv">42</span>, n_jobs<span class="op">=-</span><span class="dv">1</span>),</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"param_dist"</span>: {</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>            <span class="st">"n_estimators"</span>: randint(<span class="dv">50</span>, <span class="dv">300</span>),</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>            <span class="st">"max_depth"</span>: randint(<span class="dv">3</span>, <span class="dv">15</span>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    },</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XGBClassifier"</span>: {</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">"estimator"</span>: XGBClassifier(random_state<span class="op">=</span><span class="dv">42</span>, use_label_encoder<span class="op">=</span><span class="va">False</span>, eval_metric<span class="op">=</span><span class="st">"mlogloss"</span>, n_jobs<span class="op">=-</span><span class="dv">1</span>),</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">"param_dist"</span>: {</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">"n_estimators"</span>: randint(<span class="dv">50</span>, <span class="dv">300</span>),</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>            <span class="st">"max_depth"</span>: randint(<span class="dv">3</span>, <span class="dv">15</span>),</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">"learning_rate"</span>: loguniform(<span class="fl">1e-3</span>, <span class="fl">1e-1</span>)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    },</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"LGBMClassifier"</span>: {</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        <span class="st">"estimator"</span>: LGBMClassifier(random_state<span class="op">=</span><span class="dv">42</span>, n_jobs<span class="op">=-</span><span class="dv">1</span>),</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        <span class="st">"param_dist"</span>: {</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">"n_estimators"</span>: randint(<span class="dv">50</span>, <span class="dv">300</span>),</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>            <span class="st">"max_depth"</span>: randint(<span class="dv">3</span>, <span class="dv">15</span>),</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>            <span class="st">"learning_rate"</span>: loguniform(<span class="fl">1e-3</span>, <span class="fl">1e-1</span>)</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of random iterations for hyperparameter search</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>n_iter_search <span class="op">=</span> <span class="dv">20</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> {}</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform hyperparameter tuning</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, cfg <span class="kw">in</span> models.items():</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Tuning </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> with RandomizedSearchCV..."</span>)</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    clf <span class="op">=</span> cfg[<span class="st">"estimator"</span>]</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    param_dist <span class="op">=</span> cfg[<span class="st">"param_dist"</span>]</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    rs <span class="op">=</span> RandomizedSearchCV(</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>        estimator<span class="op">=</span>clf,</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>        param_distributions<span class="op">=</span>param_dist,</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>        n_iter<span class="op">=</span>n_iter_search,</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>        scoring<span class="op">=</span><span class="st">"accuracy"</span>,</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>        cv<span class="op">=</span><span class="dv">3</span>,</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>        n_jobs<span class="op">=-</span><span class="dv">1</span>,</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>        random_state<span class="op">=</span><span class="dv">42</span>,</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>        verbose<span class="op">=</span><span class="dv">1</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>    rs.fit(X_train_s, y_train_s)</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>    best_model <span class="op">=</span> rs.best_estimator_</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>    val_preds <span class="op">=</span> best_model.predict(X_val_s)</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>    acc <span class="op">=</span> accuracy_score(y_val_s, val_preds)</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>    f1 <span class="op">=</span> f1_score(y_val_s, val_preds, average<span class="op">=</span><span class="st">"macro"</span>)</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>    results[name] <span class="op">=</span> {</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>        <span class="st">"best_params"</span>: rs.best_params_,</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>        <span class="st">"accuracy"</span>: acc,</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>        <span class="st">"f1_score"</span>: f1,</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>        <span class="st">"best_estimator"</span>: best_model</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> tuned. Accuracy: </span><span class="sc">{</span>acc<span class="sc">:.4f}</span><span class="ss">, F1 Score: </span><span class="sc">{</span>f1<span class="sc">:.4f}</span><span class="ch">\n</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"estimator"</span>: LogisticRegression(</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>          max_iter<span class="op">=</span><span class="dv">2000</span>, solver<span class="op">=</span><span class="st">"lbfgs"</span>, n_jobs<span class="op">=-</span><span class="dv">1</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"param_dist"</span>: {</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">"C"</span>: loguniform(<span class="fl">1e-2</span>, <span class="fl">1e1</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"RandomForest"</span>: {</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"estimator"</span>: RandomForestClassifier(</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>          random_state<span class="op">=</span><span class="dv">42</span>, n_jobs<span class="op">=-</span><span class="dv">1</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"param_dist"</span>: {</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>            <span class="st">"n_estimators"</span>: randint(<span class="dv">50</span>, <span class="dv">300</span>),</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">"max_depth"</span>: randint(<span class="dv">3</span>, <span class="dv">15</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XGBClassifier"</span>: {</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">"estimator"</span>: XGBClassifier(</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>          random_state<span class="op">=</span><span class="dv">42</span>, use_label_encoder<span class="op">=</span><span class="va">False</span>, eval_metric<span class="op">=</span><span class="st">"mlogloss"</span>, n_jobs<span class="op">=-</span><span class="dv">1</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        <span class="st">"param_dist"</span>: {</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">"n_estimators"</span>: randint(<span class="dv">50</span>, <span class="dv">300</span>),</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>            <span class="st">"max_depth"</span>: randint(<span class="dv">3</span>, <span class="dv">15</span>),</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">"learning_rate"</span>: loguniform(<span class="fl">1e-3</span>, <span class="fl">1e-1</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">"LGBMClassifier"</span>: {</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        <span class="st">"estimator"</span>: LGBMClassifier(</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>          random_state<span class="op">=</span><span class="dv">42</span>, n_jobs<span class="op">=-</span><span class="dv">1</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>        <span class="st">"param_dist"</span>: {</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>            <span class="st">"n_estimators"</span>: randint(<span class="dv">50</span>, <span class="dv">300</span>),</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>            <span class="st">"max_depth"</span>: randint(<span class="dv">3</span>, <span class="dv">15</span>),</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>            <span class="st">"learning_rate"</span>: loguniform(<span class="fl">1e-3</span>, <span class="fl">1e-1</span>)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of random iterations for hyperparameter search</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>n_iter_search <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> {}</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform hyperparameter tuning</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, cfg <span class="kw">in</span> models.items():</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Tuning </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> with RandomizedSearchCV..."</span>)</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>    clf <span class="op">=</span> cfg[<span class="st">"estimator"</span>]</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>    param_dist <span class="op">=</span> cfg[<span class="st">"param_dist"</span>]</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    rs <span class="op">=</span> RandomizedSearchCV(</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>        estimator<span class="op">=</span>clf,</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>        param_distributions<span class="op">=</span>param_dist,</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>        n_iter<span class="op">=</span>n_iter_search,</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>        scoring<span class="op">=</span><span class="st">"accuracy"</span>,</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>        cv<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>        n_jobs<span class="op">=-</span><span class="dv">1</span>,</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>        random_state<span class="op">=</span><span class="dv">42</span>,</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>        verbose<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>    rs.fit(X_train_s, y_train_s)</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>    best_model <span class="op">=</span> rs.best_estimator_</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>    val_preds <span class="op">=</span> best_model.predict(X_val_s)</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>    acc <span class="op">=</span> accuracy_score(y_val_s, val_preds)</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>    f1 <span class="op">=</span> f1_score(y_val_s, val_preds, average<span class="op">=</span><span class="st">"macro"</span>)</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>    results[name] <span class="op">=</span> {</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>        <span class="st">"best_params"</span>: rs.best_params_,</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>        <span class="st">"accuracy"</span>: acc,</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>        <span class="st">"f1_score"</span>: f1,</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>        <span class="st">"best_estimator"</span>: best_model</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> tuned. Accuracy: </span><span class="sc">{</span>acc<span class="sc">:.4f}</span><span class="ss">, F1 Score: </span><span class="sc">{</span>f1<span class="sc">:.4f}</span><span class="ch">\n</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="validation-framework" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="validation-framework"><span class="header-section-number">3.2</span> Validation Framework</h2>

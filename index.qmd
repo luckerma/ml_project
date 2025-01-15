@@ -42,7 +42,11 @@ execute:
   include: true
 
 abstract: |
-  Abstract
+  Predicting football match outcomes is a challenging task due to the complexity and variability inherent in the sport. This project uses machine learning to build models capable of predicting match results (home win, draw, or away win) using historical team and player statistics. The dataset includes 12,303 rows with 884 features, capturing aggregated metrics for home and away teams and players across multiple leagues.
+
+  Key challenges include class imbalance, feature complexity, and data heterogeneity. We explored several models, including Logistic Regression, Random Forest, XGBoost, and LightGBM, with Random Forest performing best in the competition, ranking 279th out of 832 submissions with an accuracy of 48.79%.
+
+  Feature engineering, data preprocessing, and hyperparameter tuning were critical to improving model performance. However, challenges such as poor prediction of draws and class imbalance persisted. This report highlights insights from model comparisons, the role of feature selection, and the trade-offs between interpretability and complexity.
 ---
 
 # Introduction & Problem Understanding
@@ -84,20 +88,20 @@ The target class distribution is imbalanced, with **43.5% home wins**, **30.6% a
 
 #### Key Feature Statistics
 
-A quick summary of the training dataset revealed meaningful patterns in team performance metrics. The table below highlights the statistics for the top 10 features:
+A quick summary of the training dataset revealed meaningful patterns in team performance metrics. The table below highlights the statistics for the top 10 features, all regarding the home team:
 
 | **Feature**                            | **Count** | **Mean** | **Std Dev** | **Min** | **25%** | **50%** | **75%** | **Max** |
 | -------------------------------------- | --------- | -------- | ----------- | ------- | ------- | ------- | ------- | ------- |
-| home_TEAM_SHOTS_TOTAL_season_sum       | 12,303    | 4.30     | 2.91        | 0.0     | 2.0     | 4.0     | 6.0     | 10.0    |
-| home_TEAM_SHOTS_INSIDEBOX_season_sum   | 12,303    | 3.82     | 3.07        | 0.0     | 1.0     | 3.0     | 6.0     | 10.0    |
-| home_TEAM_SHOTS_OFF_TARGET_season_sum  | 12,303    | 4.51     | 2.81        | 0.0     | 2.0     | 4.0     | 6.0     | 10.0    |
-| home_TEAM_SHOTS_ON_TARGET_season_sum   | 12,303    | 4.15     | 2.86        | 0.0     | 2.0     | 4.0     | 6.0     | 10.0    |
-| home_TEAM_SHOTS_OUTSIDEBOX_season_sum  | 12,303    | 4.01     | 3.04        | 0.0     | 1.0     | 4.0     | 6.0     | 10.0    |
-| home_TEAM_PASSES_season_sum            | 12,303    | 3.85     | 3.07        | 0.0     | 1.0     | 3.0     | 6.0     | 10.0    |
-| home_TEAM_SUCCESSFUL_PASSES_season_sum | 12,303    | 3.67     | 3.03        | 0.0     | 1.0     | 3.0     | 6.0     | 10.0    |
-| home_TEAM_SAVES_season_sum             | 12,303    | 4.38     | 3.00        | 0.0     | 2.0     | 4.0     | 7.0     | 10.0    |
-| home_TEAM_CORNERS_season_sum           | 12,303    | 4.50     | 2.80        | 0.0     | 2.0     | 4.0     | 6.0     | 10.0    |
-| home_TEAM_FOULS_season_sum             | 12,303    | 4.82     | 3.02        | 0.0     | 3.0     | 5.0     | 7.0     | 10.0    |
+| SHOTS_TOTAL_season_sum       | 12,303    | 4.30     | 2.91        | 0.0     | 2.0     | 4.0     | 6.0     | 10.0    |
+| SHOTS_INSIDEBOX_season_sum   | 12,303    | 3.82     | 3.07        | 0.0     | 1.0     | 3.0     | 6.0     | 10.0    |
+| SHOTS_OFF_TARGET_season_sum  | 12,303    | 4.51     | 2.81        | 0.0     | 2.0     | 4.0     | 6.0     | 10.0    |
+| SHOTS_ON_TARGET_season_sum   | 12,303    | 4.15     | 2.86        | 0.0     | 2.0     | 4.0     | 6.0     | 10.0    |
+| SHOTS_OUTSIDEBOX_season_sum  | 12,303    | 4.01     | 3.04        | 0.0     | 1.0     | 4.0     | 6.0     | 10.0    |
+| PASSES_season_sum            | 12,303    | 3.85     | 3.07        | 0.0     | 1.0     | 3.0     | 6.0     | 10.0    |
+| SUCCESSFUL_PASSES_season_sum | 12,303    | 3.67     | 3.03        | 0.0     | 1.0     | 3.0     | 6.0     | 10.0    |
+| SAVES_season_sum             | 12,303    | 4.38     | 3.00        | 0.0     | 2.0     | 4.0     | 7.0     | 10.0    |
+| CORNERS_season_sum           | 12,303    | 4.50     | 2.80        | 0.0     | 2.0     | 4.0     | 6.0     | 10.0    |
+| FOULS_season_sum             | 12,303    | 4.82     | 3.02        | 0.0     | 3.0     | 5.0     | 7.0     | 10.0    |
 
 : Summary statistics for the top 10 features in the training dataset. {#tbl-feature-stats}
 
@@ -129,7 +133,7 @@ The first heatmap (@fig-player-correlation) visualizes the correlation matrix of
 
 ### Feature Distributions and Correlations with Outcomes
 
-@fig-feature-distribution and @fig-feature-correlation illustrate the distributions of selected **home team statistics** (e.g., **shots total**, **shots inside the box**, **passes**, and **successful passes**) and their correlations with the **home wins** target class. Key observations include:
+The following figures illustrate the distributions of selected **home team statistics** (e.g., **shots total**, **shots inside the box**, **passes**, and **successful passes**) and their correlations with the **home wins** target class. Key observations include:
 
 1. **Feature Distributions:** The distributions for metrics such as **shots total** and **successful passes** exhibit peaks at discrete values, reflecting their aggregation across matches. It can also be seen that of the selected metrics, the sum of shots a team made inside the box correlated most strongly with a home win.
 
@@ -260,20 +264,26 @@ Below is the Python implementation of the hyperparameter tuning process:
 # Define models and parameter distributions
 models = {
     "LogisticRegression": {
-        "estimator": LogisticRegression(max_iter=2000, solver="lbfgs", n_jobs=-1),
+        "estimator": LogisticRegression(
+          max_iter=2000, solver="lbfgs", n_jobs=-1
+        ),
         "param_dist": {
             "C": loguniform(1e-2, 1e1)
         }
     },
     "RandomForest": {
-        "estimator": RandomForestClassifier(random_state=42, n_jobs=-1),
+        "estimator": RandomForestClassifier(
+          random_state=42, n_jobs=-1
+        ),
         "param_dist": {
             "n_estimators": randint(50, 300),
             "max_depth": randint(3, 15)
         }
     },
     "XGBClassifier": {
-        "estimator": XGBClassifier(random_state=42, use_label_encoder=False, eval_metric="mlogloss", n_jobs=-1),
+        "estimator": XGBClassifier(
+          random_state=42, use_label_encoder=False, eval_metric="mlogloss", n_jobs=-1
+        ),
         "param_dist": {
             "n_estimators": randint(50, 300),
             "max_depth": randint(3, 15),
@@ -281,7 +291,9 @@ models = {
         }
     },
     "LGBMClassifier": {
-        "estimator": LGBMClassifier(random_state=42, n_jobs=-1),
+        "estimator": LGBMClassifier(
+          random_state=42, n_jobs=-1
+        ),
         "param_dist": {
             "n_estimators": randint(50, 300),
             "max_depth": randint(3, 15),
